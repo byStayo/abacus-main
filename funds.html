@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Abacus Wealth Group Funds - Our systematic investment strategies and algorithmic trading performance.">
+    <title>Funds & Strategies | Abacus Wealth Group</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        /* ============ CSS RESET & VARIABLES ============ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy-deep: #0a1628;
+            --navy-medium: #1a2744;
+            --slate-blue: #3d5a80;
+            --slate-light: #5d7a9a;
+            --steel-gray: #6b7d8d;
+            --white: #ffffff;
+            --off-white: #f8f9fa;
+            --black: #0d1117;
+            --text-muted: #6c757d;
+            --accent-gold: #c9a227;
+            --green: #10b981;
+            --red: #ef4444;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============ TYPOGRAPHY ============ */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); }
+        h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+
+        /* ============ NAVIGATION ============ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--navy-deep);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--steel-gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--navy-deep);
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            background: var(--navy-deep);
+            color: var(--white) !important;
+            border-radius: 4px;
+            transition: background 0.2s, transform 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--navy-medium);
+            transform: translateY(-1px);
+        }
+
+        /* ============ PAGE HERO ============ */
+        .page-hero {
+            padding: 160px 40px 100px;
+            background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-medium) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .page-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-hero .breadcrumb {
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 24px;
+        }
+
+        .page-hero .breadcrumb a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page-hero h1 {
+            margin-bottom: 24px;
+        }
+
+        .page-hero .lead {
+            font-size: 1.25rem;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        /* ============ SECTIONS ============ */
+        section {
+            padding: 100px 40px;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ============ FEATURED FUND ============ */
+        .featured-fund {
+            background: var(--off-white);
+        }
+
+        .featured-fund-card {
+            background: var(--white);
+            border: 2px solid var(--navy-deep);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .featured-fund-header {
+            background: var(--navy-deep);
+            color: var(--white);
+            padding: 32px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .featured-fund-title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .featured-fund-logo {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .featured-fund-name h2 {
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+        }
+
+        .featured-fund-name p {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .featured-badge {
+            background: var(--accent-gold);
+            color: var(--navy-deep);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .featured-fund-body {
+            padding: 40px;
+        }
+
+        .featured-fund-description {
+            font-size: 1.1rem;
+            color: var(--steel-gray);
+            line-height: 1.8;
+            margin-bottom: 32px;
+            max-width: 800px;
+        }
+
+        .featured-fund-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 32px;
+        }
+
+        .fund-strategies {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .strategy-item {
+            background: var(--off-white);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .strategy-item h4 {
+            font-size: 18px;
+            color: var(--navy-deep);
+            margin-bottom: 8px;
+        }
+
+        .strategy-item p {
+            font-size: 12px;
+            color: var(--steel-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .strategy-return {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'SF Mono', monospace;
+            color: var(--green);
+            margin-top: 12px;
+        }
+
+        .fund-summary {
+            background: var(--off-white);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .fund-summary h4 {
+            font-size: 14px;
+            color: var(--navy-deep);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .summary-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .summary-stat:last-child {
+            border-bottom: none;
+        }
+
+        .summary-stat-label {
+            font-size: 14px;
+            color: var(--steel-gray);
+        }
+
+        .summary-stat-value {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'SF Mono', monospace;
+            color: var(--navy-deep);
+        }
+
+        .featured-fund-cta {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--navy-deep);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--navy-medium);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--navy-deep);
+            color: var(--navy-deep);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--navy-deep);
+            color: var(--white);
+        }
+
+        /* ============ PARTNER FUNDS ============ */
+        .partner-funds {
+            background: var(--white);
+        }
+
+        .partner-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .partner-header h2 {
+            color: var(--navy-deep);
+            margin-bottom: 16px;
+        }
+
+        .partner-header p {
+            color: var(--steel-gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .partner-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .partner-card {
+            background: var(--off-white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            padding: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .partner-card:hover {
+            border-color: var(--slate-blue);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .partner-card.coming-soon {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .partner-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .partner-logo {
+            width: 48px;
+            height: 48px;
+            background: var(--white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy-deep);
+        }
+
+        .partner-name h3 {
+            font-size: 18px;
+            color: var(--navy-deep);
+            margin-bottom: 4px;
+        }
+
+        .partner-name p {
+            font-size: 13px;
+            color: var(--steel-gray);
+        }
+
+        .partner-card > p {
+            color: var(--steel-gray);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .partner-stats {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .partner-stat {
+            flex: 1;
+            text-align: center;
+            padding: 16px;
+            background: var(--white);
+            border-radius: 6px;
+        }
+
+        .partner-stat-value {
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'SF Mono', monospace;
+            color: var(--navy-deep);
+        }
+
+        .partner-stat-value.positive {
+            color: var(--green);
+        }
+
+        .partner-stat-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 4px;
+        }
+
+        .partner-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--navy-deep);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .partner-link:hover {
+            background: var(--navy-medium);
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--white);
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /* ============ DISCLAIMER ============ */
+        .disclaimer-section {
+            background: var(--navy-deep);
+            color: var(--white);
+            padding: 60px 40px;
+        }
+
+        .disclaimer-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .disclaimer-container h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .disclaimer-container p {
+            font-size: 13px;
+            line-height: 1.8;
+            opacity: 0.7;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: var(--navy-deep);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 80px 40px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .footer-legal {
+            font-size: 11px;
+            line-height: 1.8;
+            max-width: 700px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-copyright {
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        /* ============ MOBILE MENU ============ */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--navy-deep);
+            margin: 6px 0;
+            transition: all 0.3s;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .featured-fund-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .partner-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 24px;
+            }
+
+            .page-hero {
+                padding: 120px 24px 60px;
+            }
+
+            .nav-container {
+                padding: 0 24px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 24px;
+                gap: 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                padding: 12px 0;
+                border-bottom: 1px solid var(--off-white);
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+                padding-top: 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .featured-fund-header {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .featured-fund-title {
+                flex-direction: column;
+            }
+
+            .fund-strategies {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-fund-body {
+                padding: 24px;
+            }
+
+            .featured-fund-cta {
+                flex-direction: column;
+            }
+
+            .partner-stats {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">ABACUS</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="philosophy.html">Philosophy</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="funds.html" class="active">Funds</a></li>
+                <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Simulations</a></li>
+                <li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta">View Performance</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <p class="breadcrumb"><a href="/">Home</a> / Funds</p>
+            <h1>Funds & Strategies</h1>
+            <p class="lead">Explore our systematic investment strategies and algorithmic trading performance. Access live data and detailed analytics through our performance dashboards.</p>
+        </div>
+    </section>
+
+    <!-- Featured Fund: Abacus Algorithms -->
+    <section class="featured-fund">
+        <div class="section-container">
+            <div class="featured-fund-card">
+                <div class="featured-fund-header">
+                    <div class="featured-fund-title">
+                        <div class="featured-fund-logo">A</div>
+                        <div class="featured-fund-name">
+                            <h2>Abacus Algorithms</h2>
+                            <p>Systematic Investment Strategies</p>
+                        </div>
+                    </div>
+                    <span class="featured-badge">Primary Fund</span>
+                </div>
+                <div class="featured-fund-body">
+                    <p class="featured-fund-description">
+                        Our flagship algorithmic trading platform featuring three core strategies: OMNI for multi-asset momentum, SHIELD for capital preservation, and ALPHA for factor-based equity exposure. All strategies are systematically managed with real-time risk monitoring and disciplined execution.
+                    </p>
+                    <div class="featured-fund-grid">
+                        <div class="fund-strategies">
+                            <div class="strategy-item">
+                                <h4>OMNI</h4>
+                                <p>Multi-Asset Momentum</p>
+                                <div class="strategy-return">+125.9%</div>
+                            </div>
+                            <div class="strategy-item">
+                                <h4>SHIELD</h4>
+                                <p>Capital Preservation</p>
+                                <div class="strategy-return">+18.9%</div>
+                            </div>
+                            <div class="strategy-item">
+                                <h4>ALPHA</h4>
+                                <p>Factor-Based Equity</p>
+                                <div class="strategy-return">+49.6%</div>
+                            </div>
+                        </div>
+                        <div class="fund-summary">
+                            <h4>Fund Overview</h4>
+                            <div class="summary-stat">
+                                <span class="summary-stat-label">Strategy Type</span>
+                                <span class="summary-stat-value">Systematic</span>
+                            </div>
+                            <div class="summary-stat">
+                                <span class="summary-stat-label">Asset Classes</span>
+                                <span class="summary-stat-value">Multi-Asset</span>
+                            </div>
+                            <div class="summary-stat">
+                                <span class="summary-stat-label">Rebalancing</span>
+                                <span class="summary-stat-value">Monthly</span>
+                            </div>
+                            <div class="summary-stat">
+                                <span class="summary-stat-label">Risk Framework</span>
+                                <span class="summary-stat-value">Volatility Target</span>
+                            </div>
+                            <div class="summary-stat">
+                                <span class="summary-stat-label">Inception</span>
+                                <span class="summary-stat-value">2020</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="featured-fund-cta">
+                        <a href="https://algo.abacuswealthgroup.com/" class="btn btn-primary" target="_blank">
+                            View Live Performance
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 12L12 4M12 4H6M12 4v6"/>
+                            </svg>
+                        </a>
+                        <a href="philosophy.html" class="btn btn-outline">Learn About Our Approach</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Funds -->
+    <section class="partner-funds">
+        <div class="section-container">
+            <div class="partner-header">
+                <h2>Partner Strategies</h2>
+                <p>Curated systematic strategies from our network of quantitative investment partners.</p>
+            </div>
+            <div class="partner-grid">
+                <!-- Partner 1 - Coming Soon -->
+                <div class="partner-card coming-soon">
+                    <div class="partner-card-header">
+                        <div class="partner-logo">Q</div>
+                        <div class="partner-name">
+                            <h3>Quantitative Partners I</h3>
+                            <p>Trend Following</p>
+                        </div>
+                    </div>
+                    <p>Managed futures strategy utilizing trend signals across commodities, currencies, and equity indices with systematic risk management.</p>
+                    <div class="partner-stats">
+                        <div class="partner-stat">
+                            <div class="partner-stat-value">--</div>
+                            <div class="partner-stat-label">YTD Return</div>
+                        </div>
+                        <div class="partner-stat">
+                            <div class="partner-stat-value">--</div>
+                            <div class="partner-stat-label">Sharpe</div>
+                        </div>
+                        <div class="partner-stat">
+                            <div class="partner-stat-value">--</div>
+                            <div class="partner-stat-label">Max DD</div>
+                        </div>
+                    </div>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+
+                <!-- Partner 2 - Coming Soon -->
+                <div class="partner-card coming-soon">
+                    <div class="partner-card-header">
+                        <div class="partner-logo">S</div>
+                        <div class="partner-name">
+                            <h3>Statistical Arbitrage Fund</h3>
+                            <p>Market Neutral</p>
+                        </div>
+                    </div>
+                    <p>Market-neutral equity strategy exploiting short-term mean reversion patterns with sophisticated hedging and liquidity management.</p>
+                    <div class="partner-stats">
+                        <div class="partner-stat">
+                            <div class="partner-stat-value">--</div>
+                            <div class="partner-stat-label">YTD Return</div>
+                        </div>
+                        <div class="partner-stat">
+                            <div class="partner-stat-value">--</div>
+                            <div class="partner-stat-label">Sharpe</div>
+                        </div>
+                        <div class="partner-stat">
+                            <div class="partner-stat-value">--</div>
+                            <div class="partner-stat-label">Max DD</div>
+                        </div>
+                    </div>
+                    <span class="coming-soon-badge">Coming Soon</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disclaimer -->
+    <section class="disclaimer-section">
+        <div class="disclaimer-container">
+            <h3>Important Disclosures</h3>
+            <p>
+                Past performance is not indicative of future results. All investments involve risk, including the possible loss of principal. The performance data shown represents backtested or hypothetical results and does not represent actual trading. Backtested performance has inherent limitations including the benefit of hindsight. Actual results may differ materially from backtested results. There is no guarantee that any investment strategy will achieve its objectives. This information is provided for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">ABACUS</div>
+                    <p>Quantitative investment strategies engineered for long-term wealth preservation. We combine rigorous data analysis with systematic execution.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="philosophy.html">Philosophy</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="funds.html">Funds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://algo.abacuswealthgroup.com/">Algorithm Performance</a></li>
+                        <li><a href="https://games.abacuswealthgroup.com/">Interactive Simulations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:info@abacuswealthgroup.com">info@abacuswealthgroup.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">
+                    This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. Past performance is not indicative of future results. All investments involve risk, including the possible loss of principal.
+                </p>
+                <p class="footer-copyright">&copy; 2026 Abacus Wealth Group</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

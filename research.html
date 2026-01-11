@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Abacus Wealth Group Research - Quantitative research and insights from our investment team.">
+    <title>Research & Insights | Abacus Wealth Group</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        /* ============ CSS RESET & VARIABLES ============ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy-deep: #0a1628;
+            --navy-medium: #1a2744;
+            --slate-blue: #3d5a80;
+            --slate-light: #5d7a9a;
+            --steel-gray: #6b7d8d;
+            --white: #ffffff;
+            --off-white: #f8f9fa;
+            --black: #0d1117;
+            --text-muted: #6c757d;
+            --accent-gold: #c9a227;
+            --green: #10b981;
+            --red: #ef4444;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--black);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ============ TYPOGRAPHY ============ */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); }
+        h3 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+
+        /* ============ NAVIGATION ============ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--navy-deep);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--steel-gray);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--navy-deep);
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            background: var(--navy-deep);
+            color: var(--white) !important;
+            border-radius: 4px;
+            transition: background 0.2s, transform 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--navy-medium);
+            transform: translateY(-1px);
+        }
+
+        /* ============ PAGE HERO ============ */
+        .page-hero {
+            padding: 160px 40px 100px;
+            background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-medium) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .page-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-hero .breadcrumb {
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 24px;
+        }
+
+        .page-hero .breadcrumb a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page-hero h1 {
+            margin-bottom: 24px;
+        }
+
+        .page-hero .lead {
+            font-size: 1.25rem;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        /* ============ FILTER BAR ============ */
+        .filter-bar {
+            background: var(--off-white);
+            padding: 24px 40px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--steel-gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--slate-blue);
+            color: var(--navy-deep);
+        }
+
+        .filter-btn.active {
+            background: var(--navy-deep);
+            border-color: var(--navy-deep);
+            color: var(--white);
+        }
+
+        /* ============ RESEARCH GRID ============ */
+        .research-section {
+            padding: 80px 40px;
+            background: var(--white);
+        }
+
+        .research-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .research-card {
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .research-card:hover {
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .research-card-image {
+            height: 160px;
+            background: linear-gradient(135deg, var(--navy-medium), var(--slate-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .research-card-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .research-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .research-card-content {
+            padding: 28px;
+        }
+
+        .research-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .research-category {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--white);
+            background: var(--slate-blue);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .research-category.factor { background: #3b82f6; }
+        .research-category.risk { background: #ef4444; }
+        .research-category.macro { background: #10b981; }
+        .research-category.structure { background: #f59e0b; }
+
+        .research-date {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .research-card h3 {
+            font-size: 18px;
+            color: var(--navy-deep);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .research-card p {
+            font-size: 14px;
+            color: var(--steel-gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .research-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid var(--off-white);
+        }
+
+        .read-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .read-link {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--slate-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s;
+        }
+
+        .read-link:hover {
+            color: var(--navy-deep);
+            gap: 10px;
+        }
+
+        /* ============ FEATURED RESEARCH ============ */
+        .featured-section {
+            padding: 80px 40px;
+            background: var(--navy-deep);
+            color: var(--white);
+        }
+
+        .featured-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .featured-header {
+            margin-bottom: 48px;
+        }
+
+        .featured-header h2 {
+            margin-bottom: 12px;
+        }
+
+        .featured-header p {
+            opacity: 0.7;
+        }
+
+        .featured-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 48px;
+        }
+
+        .featured-content h3 {
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+        }
+
+        .featured-content p {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .featured-meta {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .featured-meta-item {
+            font-size: 13px;
+            opacity: 0.6;
+        }
+
+        .featured-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: var(--white);
+            color: var(--navy-deep);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .featured-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .featured-visual {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-visual::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .featured-chart-icon {
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: var(--navy-deep);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 80px 40px 40px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            color: var(--white);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .footer-legal {
+            font-size: 11px;
+            line-height: 1.8;
+            max-width: 700px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .footer-copyright {
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        /* ============ MOBILE MENU ============ */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--navy-deep);
+            margin: 6px 0;
+            transition: all 0.3s;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .research-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .featured-card {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .featured-visual {
+                height: 200px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-hero {
+                padding: 120px 24px 60px;
+            }
+
+            .filter-bar {
+                padding: 16px 24px;
+            }
+
+            .research-section,
+            .featured-section {
+                padding: 60px 24px;
+            }
+
+            .nav-container {
+                padding: 0 24px;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 24px;
+                gap: 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                padding: 12px 0;
+                border-bottom: 1px solid var(--off-white);
+            }
+
+            .nav-links li:last-child {
+                border-bottom: none;
+                padding-top: 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-card {
+                padding: 32px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">ABACUS</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="philosophy.html">Philosophy</a></li>
+                <li><a href="research.html" class="active">Research</a></li>
+                <li><a href="funds.html">Funds</a></li>
+                <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Simulations</a></li>
+                <li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta">View Performance</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <p class="breadcrumb"><a href="/">Home</a> / Research</p>
+            <h1>Research & Insights</h1>
+            <p class="lead">Deep analysis and thought leadership from our quantitative research team. Explore our latest findings on factor investing, risk management, and market dynamics.</p>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All Research</button>
+            <button class="filter-btn" data-filter="factor">Factor Analysis</button>
+            <button class="filter-btn" data-filter="risk">Risk Management</button>
+            <button class="filter-btn" data-filter="macro">Macro Signals</button>
+            <button class="filter-btn" data-filter="structure">Market Structure</button>
+        </div>
+    </div>
+
+    <!-- Featured Research -->
+    <section class="featured-section">
+        <div class="featured-container">
+            <div class="featured-header">
+                <h2>Featured Research</h2>
+                <p>Our most impactful recent publication.</p>
+            </div>
+            <div class="featured-card">
+                <div class="featured-content">
+                    <h3>The Momentum Anomaly: A Multi-Decade Analysis</h3>
+                    <p>A comprehensive examination of momentum strategies across asset classes and time periods. This paper analyzes the persistence of momentum returns, identifies key risk factors, and proposes enhanced methodologies for capturing the momentum premium while managing crash risk.</p>
+                    <div class="featured-meta">
+                        <span class="featured-meta-item">Published January 2026</span>
+                        <span class="featured-meta-item">45 min read</span>
+                        <span class="featured-meta-item">Factor Analysis</span>
+                    </div>
+                    <a href="#" class="featured-btn">
+                        Read Full Paper
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8h10M9 4l4 4-4 4"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="featured-visual">
+                    <div class="featured-chart-icon">📊</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Grid -->
+    <section class="research-section">
+        <div class="research-container">
+            <div class="research-grid">
+                <!-- Factor Analysis -->
+                <div class="research-card" data-category="factor">
+                    <div class="research-card-image">
+                        <div class="research-icon">📈</div>
+                    </div>
+                    <div class="research-card-content">
+                        <div class="research-card-meta">
+                            <span class="research-category factor">Factor Analysis</span>
+                            <span class="research-date">January 2026</span>
+                        </div>
+                        <h3>Momentum Decay in Rising Rate Environments</h3>
+                        <p>An examination of how traditional momentum factors perform during Federal Reserve tightening cycles and implications for portfolio construction.</p>
+                        <div class="research-card-footer">
+                            <span class="read-time">8 min read</span>
+                            <a href="#" class="read-link">
+                                Read More
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Management -->
+                <div class="research-card" data-category="risk">
+                    <div class="research-card-image">
+                        <div class="research-icon">🛡️</div>
+                    </div>
+                    <div class="research-card-content">
+                        <div class="research-card-meta">
+                            <span class="research-category risk">Risk Management</span>
+                            <span class="research-date">December 2025</span>
+                        </div>
+                        <h3>Tail Risk Hedging with Systematic Strategies</h3>
+                        <p>Cost-effective approaches to portfolio insurance using options and dynamic allocation without sacrificing long-term returns.</p>
+                        <div class="research-card-footer">
+                            <span class="read-time">12 min read</span>
+                            <a href="#" class="read-link">
+                                Read More
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Macro Signals -->
+                <div class="research-card" data-category="macro">
+                    <div class="research-card-image">
+                        <div class="research-icon">🌐</div>
+                    </div>
+                    <div class="research-card-content">
+                        <div class="research-card-meta">
+                            <span class="research-category macro">Macro Signals</span>
+                            <span class="research-date">November 2025</span>
+                        </div>
+                        <h3>Cross-Asset Correlations During Regime Changes</h3>
+                        <p>How correlation structures break down during market stress and implications for diversification strategies.</p>
+                        <div class="research-card-footer">
+                            <span class="read-time">10 min read</span>
+                            <a href="#" class="read-link">
+                                Read More
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Structure -->
+                <div class="research-card" data-category="structure">
+                    <div class="research-card-image">
+                        <div class="research-icon">⚡</div>
+                    </div>
+                    <div class="research-card-content">
+                        <div class="research-card-meta">
+                            <span class="research-category structure">Market Structure</span>
+                            <span class="research-date">October 2025</span>
+                        </div>
+                        <h3>Liquidity Dynamics in Modern Markets</h3>
+                        <p>Understanding market microstructure changes and their impact on execution quality and trading costs.</p>
+                        <div class="research-card-footer">
+                            <span class="read-time">15 min read</span>
+                            <a href="#" class="read-link">
+                                Read More
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Factor Analysis 2 -->
+                <div class="research-card" data-category="factor">
+                    <div class="research-card-image">
+                        <div class="research-icon">📊</div>
+                    </div>
+                    <div class="research-card-content">
+                        <div class="research-card-meta">
+                            <span class="research-category factor">Factor Analysis</span>
+                            <span class="research-date">September 2025</span>
+                        </div>
+                        <h3>Value Factor: Dead or Sleeping?</h3>
+                        <p>A deep dive into the underperformance of value strategies and whether traditional metrics still capture mispricing.</p>
+                        <div class="research-card-footer">
+                            <span class="read-time">18 min read</span>
+                            <a href="#" class="read-link">
+                                Read More
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Management 2 -->
+                <div class="research-card" data-category="risk">
+                    <div class="research-card-image">
+                        <div class="research-icon">📉</div>
+                    </div>
+                    <div class="research-card-content">
+                        <div class="research-card-meta">
+                            <span class="research-category risk">Risk Management</span>
+                            <span class="research-date">August 2025</span>
+                        </div>
+                        <h3>Volatility Targeting: Implementation Considerations</h3>
+                        <p>Practical aspects of running volatility-targeted strategies, including lag effects and transaction costs.</p>
+                        <div class="research-card-footer">
+                            <span class="read-time">14 min read</span>
+                            <a href="#" class="read-link">
+                                Read More
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Macro Signals 2 -->
+                <div class="research-card" data-category="macro">
+                    <div class="research-card-image">
+                        <div class="research-icon">🔮</div>
+                    </div>
+                    <div class="research-card-content">
+                        <div class="research-card-meta">
+                            <span class="research-category macro">Macro Signals</span>
+                            <span class="research-date">July 2025</span>
+                        </div>
+                        <h3>Yield Curve Signals for Equity Returns</h3>
+                        <p>Analyzing the predictive power of yield curve indicators for stock market performance across different regimes.</p>
+                        <div class="research-card-footer">
+                            <span class="read-time">11 min read</span>
+                            <a href="#" class="read-link">
+                                Read More
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Structure 2 -->
+                <div class="research-card" data-category="structure">
+                    <div class="research-card-image">
+                        <div class="research-icon">🔄</div>
+                    </div>
+                    <div class="research-card-content">
+                        <div class="research-card-meta">
+                            <span class="research-category structure">Market Structure</span>
+                            <span class="research-date">June 2025</span>
+                        </div>
+                        <h3>ETF Arbitrage and Price Discovery</h3>
+                        <p>How the growth of passive investing affects price discovery and creates opportunities for active strategies.</p>
+                        <div class="research-card-footer">
+                            <span class="read-time">16 min read</span>
+                            <a href="#" class="read-link">
+                                Read More
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Factor Analysis 3 -->
+                <div class="research-card" data-category="factor">
+                    <div class="research-card-image">
+                        <div class="research-icon">⚙️</div>
+                    </div>
+                    <div class="research-card-content">
+                        <div class="research-card-meta">
+                            <span class="research-category factor">Factor Analysis</span>
+                            <span class="research-date">May 2025</span>
+                        </div>
+                        <h3>Quality Factor Construction Methods</h3>
+                        <p>Comparing different approaches to building quality factor portfolios and their out-of-sample performance.</p>
+                        <div class="research-card-footer">
+                            <span class="read-time">20 min read</span>
+                            <a href="#" class="read-link">
+                                Read More
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 8h10M9 4l4 4-4 4"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">ABACUS</div>
+                    <p>Quantitative investment strategies engineered for long-term wealth preservation. We combine rigorous data analysis with systematic execution.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="philosophy.html">Philosophy</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="funds.html">Funds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://algo.abacuswealthgroup.com/">Algorithm Performance</a></li>
+                        <li><a href="https://games.abacuswealthgroup.com/">Interactive Simulations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:info@abacuswealthgroup.com">info@abacuswealthgroup.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">
+                    This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. Past performance is not indicative of future results. All investments involve risk, including the possible loss of principal.
+                </p>
+                <p class="footer-copyright">&copy; 2026 Abacus Wealth Group</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const researchCards = document.querySelectorAll('.research-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter cards
+                const filter = btn.dataset.filter;
+                researchCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

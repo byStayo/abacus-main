@@ -6,6 +6,8 @@
     <meta name="description" content="Abacus Wealth Group - Systematic capital allocation through quantitative strategies engineered for long-term wealth preservation.">
     <title>Abacus Wealth Group | Quantitative Investment Strategies</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- TradingView Lightweight Charts -->
+    <script src="https://unpkg.com/lightweight-charts@4.1.0/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         /* ============ CSS RESET & VARIABLES ============ */
         *, *::before, *::after {
@@ -25,8 +27,8 @@
             --black: #0d1117;
             --text-muted: #6c757d;
             --accent-gold: #c9a227;
-            --success: #2e7d32;
-            --danger: #c62828;
+            --green: #10b981;
+            --red: #ef4444;
         }
 
         html {
@@ -57,12 +59,70 @@
             font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
         }
 
+        /* ============ LIVE TICKER BAR ============ */
+        .ticker-bar {
+            background: var(--navy-deep);
+            color: var(--white);
+            overflow: hidden;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .ticker-track {
+            display: flex;
+            animation: ticker-scroll 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 24px;
+            font-size: 13px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        .ticker-symbol {
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .ticker-price {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .ticker-change {
+            font-weight: 500;
+        }
+
+        .ticker-change.up { color: var(--green); }
+        .ticker-change.down { color: var(--red); }
+
+        .ticker-status {
+            position: absolute;
+            right: 12px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
         /* ============ NAVIGATION ============ */
         nav {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -108,7 +168,8 @@
             transition: color 0.2s;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--navy-deep);
         }
 
@@ -127,7 +188,7 @@
 
         /* ============ HERO SECTION ============ */
         .hero {
-            min-height: 100vh;
+            min-height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -141,7 +202,6 @@
             );
         }
 
-        /* Mountain silhouettes using CSS */
         .mountains {
             position: absolute;
             bottom: 0;
@@ -164,19 +224,8 @@
                 rgba(26, 39, 68, 0.8) 100%
             );
             clip-path: polygon(
-                0% 100%,
-                5% 60%,
-                15% 75%,
-                25% 45%,
-                35% 65%,
-                45% 30%,
-                55% 50%,
-                65% 25%,
-                75% 55%,
-                85% 35%,
-                95% 60%,
-                100% 40%,
-                100% 100%
+                0% 100%, 5% 60%, 15% 75%, 25% 45%, 35% 65%, 45% 30%,
+                55% 50%, 65% 25%, 75% 55%, 85% 35%, 95% 60%, 100% 40%, 100% 100%
             );
             opacity: 0.7;
         }
@@ -188,19 +237,8 @@
                 var(--navy-deep) 100%
             );
             clip-path: polygon(
-                0% 100%,
-                0% 70%,
-                10% 50%,
-                20% 70%,
-                30% 35%,
-                40% 55%,
-                50% 20%,
-                60% 45%,
-                70% 30%,
-                80% 60%,
-                90% 40%,
-                100% 55%,
-                100% 100%
+                0% 100%, 0% 70%, 10% 50%, 20% 70%, 30% 35%, 40% 55%,
+                50% 20%, 60% 45%, 70% 30%, 80% 60%, 90% 40%, 100% 55%, 100% 100%
             );
             opacity: 0.85;
         }
@@ -209,35 +247,9 @@
             height: 35%;
             background: var(--navy-deep);
             clip-path: polygon(
-                0% 100%,
-                0% 80%,
-                8% 55%,
-                18% 75%,
-                28% 45%,
-                38% 65%,
-                48% 40%,
-                58% 60%,
-                68% 35%,
-                78% 55%,
-                88% 50%,
-                100% 65%,
-                100% 100%
+                0% 100%, 0% 80%, 8% 55%, 18% 75%, 28% 45%, 38% 65%,
+                48% 40%, 58% 60%, 68% 35%, 78% 55%, 88% 50%, 100% 65%, 100% 100%
             );
-        }
-
-        /* Snow caps effect */
-        .mountain-front::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 15%;
-            background: linear-gradient(180deg,
-                rgba(255, 255, 255, 0.15) 0%,
-                transparent 100%
-            );
-            clip-path: inherit;
         }
 
         .hero-content {
@@ -247,7 +259,7 @@
             color: var(--white);
             padding: 0 20px;
             max-width: 900px;
-            margin-top: -10vh;
+            margin-top: -5vh;
         }
 
         .hero-tagline {
@@ -271,46 +283,50 @@
             line-height: 1.7;
         }
 
-        .hero-cta {
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 16px 32px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: var(--white);
-            text-decoration: none;
+            gap: 8px;
+            padding: 14px 28px;
             font-size: 14px;
             font-weight: 500;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
             border-radius: 4px;
+            text-decoration: none;
             transition: all 0.3s ease;
         }
 
-        .hero-cta:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.4);
+        .hero-btn-primary {
+            background: var(--white);
+            color: var(--navy-deep);
+        }
+
+        .hero-btn-primary:hover {
+            background: var(--off-white);
             transform: translateY(-2px);
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.5);
-            animation: bounce 2s infinite;
+        .hero-btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: var(--white);
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
+        .hero-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         /* ============ SECTIONS ============ */
         section {
-            padding: 120px 40px;
+            padding: 100px 40px;
         }
 
         .section-container {
@@ -320,7 +336,7 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 60px;
         }
 
         .section-label {
@@ -328,12 +344,12 @@
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--slate-blue);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .section-header h2 {
             color: var(--navy-deep);
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .section-desc {
@@ -343,84 +359,98 @@
             font-size: 1.1rem;
         }
 
-        /* ============ PHILOSOPHY SECTION ============ */
-        .philosophy {
-            background: var(--white);
+        /* ============ MARKET DATA SECTION ============ */
+        .market-data {
+            background: var(--off-white);
         }
 
-        .philosophy-grid {
+        .charts-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 60px;
+            gap: 24px;
         }
 
-        .philosophy-item {
-            text-align: center;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+        .chart-card {
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 8px;
+            padding: 24px;
+            transition: box-shadow 0.3s;
         }
 
-        .philosophy-item.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .chart-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
         }
 
-        .philosophy-icon {
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 24px;
+        .chart-header {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--off-white);
-            border-radius: 12px;
-            font-size: 28px;
-        }
-
-        .philosophy-item h3 {
-            color: var(--navy-deep);
+            justify-content: space-between;
+            align-items: flex-start;
             margin-bottom: 16px;
         }
 
-        .philosophy-item p {
-            color: var(--steel-gray);
-            font-size: 15px;
-            line-height: 1.7;
+        .chart-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy-deep);
         }
 
-        /* ============ STRATEGIES SECTION ============ */
-        .strategies {
-            background: var(--off-white);
+        .chart-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 2px;
         }
 
-        .strategy-cards {
+        .chart-value {
+            text-align: right;
+        }
+
+        .chart-price {
+            font-size: 20px;
+            font-weight: 600;
+            font-family: 'SF Mono', monospace;
+            color: var(--navy-deep);
+        }
+
+        .chart-change {
+            font-size: 13px;
+            font-family: 'SF Mono', monospace;
+        }
+
+        .chart-change.up { color: var(--green); }
+        .chart-change.down { color: var(--red); }
+
+        .chart-container {
+            height: 200px;
+            margin: 0 -8px;
+        }
+
+        /* ============ FUND PREVIEW SECTION ============ */
+        .fund-preview {
+            background: var(--white);
+        }
+
+        .fund-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 32px;
         }
 
-        .strategy-card {
+        .fund-card {
             background: var(--white);
-            border: 1px solid rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 8px;
-            padding: 40px;
+            padding: 32px;
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(30px);
         }
 
-        .strategy-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .strategy-card:hover {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        .fund-card:hover {
+            border-color: var(--slate-blue);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
             transform: translateY(-4px);
         }
 
-        .strategy-tag {
+        .fund-tag {
             display: inline-block;
             padding: 4px 12px;
             background: var(--off-white);
@@ -430,266 +460,100 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--slate-blue);
-            margin-bottom: 20px;
-        }
-
-        .strategy-card h3 {
-            color: var(--navy-deep);
             margin-bottom: 16px;
         }
 
-        .strategy-card p {
+        .fund-tag.reactive { background: rgba(201, 162, 39, 0.15); color: #a88b1d; }
+        .fund-tag.defensive { background: rgba(61, 90, 128, 0.15); color: var(--slate-blue); }
+        .fund-tag.growth { background: rgba(16, 185, 129, 0.15); color: #059669; }
+
+        .fund-card h3 {
+            color: var(--navy-deep);
+            margin-bottom: 12px;
+            font-size: 1.5rem;
+        }
+
+        .fund-card > p {
             color: var(--steel-gray);
-            font-size: 15px;
-            line-height: 1.7;
+            font-size: 14px;
+            line-height: 1.6;
             margin-bottom: 24px;
         }
 
-        .strategy-metrics {
-            display: flex;
-            gap: 24px;
+        .fund-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
             padding-top: 20px;
             border-top: 1px solid var(--off-white);
+            margin-bottom: 24px;
         }
 
-        .metric {
-            flex: 1;
+        .fund-metric {
+            text-align: center;
         }
 
-        .metric-value {
-            font-size: 20px;
+        .fund-metric-value {
+            font-size: 18px;
             font-weight: 600;
+            font-family: 'SF Mono', monospace;
             color: var(--navy-deep);
         }
 
-        .metric-value.positive { color: var(--success); }
-        .metric-value.negative { color: var(--danger); }
+        .fund-metric-value.positive { color: var(--green); }
 
-        .metric-label {
-            font-size: 11px;
+        .fund-metric-label {
+            font-size: 10px;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-top: 4px;
         }
 
-        /* ============ PERFORMANCE SECTION ============ */
-        .performance {
+        .fund-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
             background: var(--navy-deep);
             color: var(--white);
-        }
-
-        .performance .section-label {
-            color: var(--slate-light);
-        }
-
-        .performance .section-header h2 {
-            color: var(--white);
-        }
-
-        .performance .section-desc {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .performance-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 60px;
-        }
-
-        .perf-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 32px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-
-        .perf-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .perf-card:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .perf-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 24px;
-        }
-
-        .perf-name {
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-        }
-
-        .perf-category {
-            font-size: 10px;
-            padding: 4px 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .perf-category.reactive { background: rgba(201, 162, 39, 0.2); color: var(--accent-gold); }
-        .perf-category.growth { background: rgba(46, 125, 50, 0.2); color: #81c784; }
-        .perf-category.safe { background: rgba(61, 90, 128, 0.3); color: var(--slate-light); }
-
-        .perf-return {
-            font-size: 36px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .perf-return.positive { color: #81c784; }
-        .perf-return.negative { color: #e57373; }
-
-        .perf-period {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 24px;
-        }
-
-        .perf-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-        }
-
-        .perf-stat {
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 4px;
-        }
-
-        .perf-stat-value {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .perf-stat-label {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 4px;
-        }
-
-        /* Mini chart placeholder */
-        .perf-chart {
-            height: 60px;
-            margin-bottom: 24px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-line {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(129, 199, 132, 0.3) 50%,
-                rgba(129, 199, 132, 0.1) 100%
-            );
-            clip-path: polygon(
-                0% 80%,
-                10% 70%,
-                20% 75%,
-                30% 50%,
-                40% 55%,
-                50% 35%,
-                60% 40%,
-                70% 25%,
-                80% 30%,
-                90% 15%,
-                100% 10%,
-                100% 100%,
-                0% 100%
-            );
-        }
-
-        .chart-line.negative {
-            background: linear-gradient(90deg,
-                transparent 0%,
-                rgba(229, 115, 115, 0.3) 50%,
-                rgba(229, 115, 115, 0.1) 100%
-            );
-            clip-path: polygon(
-                0% 20%,
-                10% 30%,
-                20% 25%,
-                30% 45%,
-                40% 50%,
-                50% 60%,
-                60% 55%,
-                70% 70%,
-                80% 65%,
-                90% 80%,
-                100% 85%,
-                100% 100%,
-                0% 100%
-            );
-        }
-
-        .perf-disclaimer {
-            text-align: center;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.4);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .explore-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--accent-gold);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
-            margin-top: 40px;
-            transition: gap 0.2s;
+            border-radius: 4px;
+            transition: all 0.2s;
         }
 
-        .explore-link:hover {
-            gap: 12px;
+        .fund-link:hover {
+            background: var(--navy-medium);
         }
 
-        /* ============ RESEARCH SECTION ============ */
-        .research {
-            background: var(--white);
+        .fund-link svg {
+            transition: transform 0.2s;
+        }
+
+        .fund-link:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* ============ RESEARCH FEED SECTION ============ */
+        .research-feed {
+            background: var(--off-white);
         }
 
         .research-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
         }
 
         .research-card {
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: var(--white);
+            border: 1px solid rgba(0, 0, 0, 0.06);
             border-radius: 8px;
-            overflow: hidden;
+            padding: 24px;
             transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .research-card.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .research-card:hover {
@@ -697,55 +561,40 @@
             transform: translateY(-4px);
         }
 
-        .research-image {
-            height: 180px;
-            background: linear-gradient(135deg, var(--navy-medium), var(--slate-blue));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            opacity: 0.8;
-        }
-
-        .research-content {
-            padding: 28px;
-        }
-
-        .research-meta {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .research-tag {
+        .research-category {
             font-size: 10px;
             font-weight: 600;
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--slate-blue);
-        }
-
-        .research-date {
-            font-size: 12px;
-            color: var(--text-muted);
+            margin-bottom: 12px;
         }
 
         .research-card h3 {
+            font-size: 16px;
             color: var(--navy-deep);
-            font-size: 18px;
             margin-bottom: 12px;
             line-height: 1.4;
         }
 
         .research-card p {
+            font-size: 13px;
             color: var(--steel-gray);
-            font-size: 14px;
             line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .research-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-muted);
         }
 
         .research-cta {
             text-align: center;
-            margin-top: 60px;
+            margin-top: 48px;
         }
 
         .btn-outline {
@@ -872,9 +721,11 @@
 
         /* ============ RESPONSIVE ============ */
         @media (max-width: 1024px) {
-            .philosophy-grid,
-            .strategy-cards,
-            .performance-grid,
+            .charts-grid,
+            .fund-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
             .research-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -887,7 +738,16 @@
 
         @media (max-width: 768px) {
             section {
-                padding: 80px 24px;
+                padding: 60px 24px;
+            }
+
+            .ticker-bar {
+                height: 36px;
+            }
+
+            .ticker-item {
+                padding: 0 16px;
+                font-size: 12px;
             }
 
             .nav-container {
@@ -921,18 +781,12 @@
                 padding-top: 20px;
             }
 
-            .nav-cta {
-                display: block;
-                text-align: center;
-            }
-
             .menu-toggle {
                 display: block;
             }
 
-            .philosophy-grid,
-            .strategy-cards,
-            .performance-grid,
+            .charts-grid,
+            .fund-cards,
             .research-grid {
                 grid-template-columns: 1fr;
             }
@@ -947,16 +801,13 @@
                 text-align: center;
             }
 
-            .footer-legal {
-                max-width: 100%;
+            .hero {
+                min-height: 60vh;
             }
 
-            .hero-content {
-                margin-top: 0;
-            }
-
-            .mountains {
-                height: 50%;
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
             }
         }
 
@@ -976,20 +827,20 @@
             animation: fadeInUp 1s ease 0.3s both;
         }
 
-        .mountain-back {
-            animation: fadeInUp 1.2s ease 0s both;
-        }
-
-        .mountain-mid {
-            animation: fadeInUp 1.2s ease 0.2s both;
-        }
-
-        .mountain-front {
-            animation: fadeInUp 1.2s ease 0.4s both;
-        }
+        .mountain-back { animation: fadeInUp 1.2s ease 0s both; }
+        .mountain-mid { animation: fadeInUp 1.2s ease 0.2s both; }
+        .mountain-front { animation: fadeInUp 1.2s ease 0.4s both; }
     </style>
 </head>
 <body>
+    <!-- Live Ticker Bar -->
+    <div class="ticker-bar">
+        <div class="ticker-track" id="tickerTrack">
+            <!-- Populated by JavaScript -->
+        </div>
+        <span class="ticker-status" id="tickerStatus">Loading...</span>
+    </div>
+
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
@@ -1000,11 +851,11 @@
                 <span></span>
             </button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#philosophy">Philosophy</a></li>
-                <li><a href="#strategies">Strategies</a></li>
-                <li><a href="#performance">Performance</a></li>
-                <li><a href="#research">Research</a></li>
-                <li><a href="#contact" class="nav-cta">Contact</a></li>
+                <li><a href="philosophy.html">Philosophy</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="funds.html">Funds</a></li>
+                <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Simulations</a></li>
+                <li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta">View Performance</a></li>
             </ul>
         </div>
     </nav>
@@ -1020,256 +871,10 @@
             <p class="hero-tagline">Quantitative Investment Management</p>
             <h1>Systematic Capital Allocation</h1>
             <p class="hero-subtitle">Data-driven investment strategies built on quantitative rigor and disciplined risk management. Engineered for long-term wealth preservation.</p>
-            <a href="#philosophy" class="hero-cta">
-                Explore Our Approach
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M8 3v10M3 8l5 5 5-5"/>
-                </svg>
-            </a>
-        </div>
-        <div class="scroll-indicator">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-        </div>
-    </section>
-
-    <!-- Philosophy Section -->
-    <section class="philosophy" id="philosophy">
-        <div class="section-container">
-            <div class="section-header">
-                <p class="section-label">Investment Philosophy</p>
-                <h2>Principles That Guide Us</h2>
-                <p class="section-desc">Our approach combines rigorous quantitative analysis with disciplined execution, removing emotion from investment decisions.</p>
-            </div>
-            <div class="philosophy-grid">
-                <div class="philosophy-item">
-                    <div class="philosophy-icon">📊</div>
-                    <h3>Quantitative Foundation</h3>
-                    <p>Every investment decision is backed by data. We analyze market signals, factor exposures, and statistical patterns to identify opportunities invisible to traditional analysis.</p>
-                </div>
-                <div class="philosophy-item">
-                    <div class="philosophy-icon">⚙️</div>
-                    <h3>Rules-Based Execution</h3>
-                    <p>Systematic processes remove human bias from trading. Our algorithms execute with precision, maintaining discipline through all market conditions.</p>
-                </div>
-                <div class="philosophy-item">
-                    <div class="philosophy-icon">🛡️</div>
-                    <h3>Risk-First Approach</h3>
-                    <p>Capital preservation precedes capital appreciation. We continuously monitor and manage risk exposures, protecting against tail events and drawdowns.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Strategies Section -->
-    <section class="strategies" id="strategies">
-        <div class="section-container">
-            <div class="section-header">
-                <p class="section-label">Strategy Overview</p>
-                <h2>Systematic Investment Strategies</h2>
-                <p class="section-desc">Diversified approaches designed to generate returns across market environments while managing downside risk.</p>
-            </div>
-            <div class="strategy-cards">
-                <div class="strategy-card">
-                    <span class="strategy-tag">Reactive</span>
-                    <h3>OMNI Strategy</h3>
-                    <p>Multi-asset momentum strategy with dynamic allocation across global markets. Designed to capture trends while limiting drawdowns through systematic rebalancing.</p>
-                    <div class="strategy-metrics">
-                        <div class="metric">
-                            <div class="metric-value positive">125.9%</div>
-                            <div class="metric-label">1Y Return</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">1.92</div>
-                            <div class="metric-label">Sharpe</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="strategy-card">
-                    <span class="strategy-tag">Defensive</span>
-                    <h3>SHIELD Strategy</h3>
-                    <p>Capital preservation strategy optimized for volatile markets. Emphasizes downside protection with systematic hedging and volatility targeting.</p>
-                    <div class="strategy-metrics">
-                        <div class="metric">
-                            <div class="metric-value positive">18.9%</div>
-                            <div class="metric-label">1Y Return</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">1.26</div>
-                            <div class="metric-label">Sharpe</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="strategy-card">
-                    <span class="strategy-tag">Growth</span>
-                    <h3>ALPHA Strategy</h3>
-                    <p>Factor-based equity strategy targeting systematic alpha through exposure to proven return drivers: value, momentum, quality, and low volatility.</p>
-                    <div class="strategy-metrics">
-                        <div class="metric">
-                            <div class="metric-value positive">49.6%</div>
-                            <div class="metric-label">1Y Return</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">1.01</div>
-                            <div class="metric-label">Sharpe</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Performance Section -->
-    <section class="performance" id="performance">
-        <div class="section-container">
-            <div class="section-header">
-                <p class="section-label">Algorithm Performance</p>
-                <h2>Data-Driven Results</h2>
-                <p class="section-desc">Historical performance of our systematic strategies compared to traditional benchmarks.</p>
-            </div>
-            <div class="performance-grid">
-                <!-- Reactive Vehicles -->
-                <div class="perf-card">
-                    <div class="perf-header">
-                        <span class="perf-name">OMNI</span>
-                        <span class="perf-category reactive">Reactive</span>
-                    </div>
-                    <div class="perf-chart">
-                        <div class="chart-line"></div>
-                    </div>
-                    <div class="perf-return positive">+125.9%</div>
-                    <div class="perf-period">1-Year Annualized Return</div>
-                    <div class="perf-stats">
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">1.92</div>
-                            <div class="perf-stat-label">Sharpe Ratio</div>
-                        </div>
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">-25.1%</div>
-                            <div class="perf-stat-label">Max Drawdown</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="perf-card">
-                    <div class="perf-header">
-                        <span class="perf-name">SHIELD</span>
-                        <span class="perf-category reactive">Reactive</span>
-                    </div>
-                    <div class="perf-chart">
-                        <div class="chart-line"></div>
-                    </div>
-                    <div class="perf-return positive">+18.9%</div>
-                    <div class="perf-period">1-Year Annualized Return</div>
-                    <div class="perf-stats">
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">1.26</div>
-                            <div class="perf-stat-label">Sharpe Ratio</div>
-                        </div>
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">-7.1%</div>
-                            <div class="perf-stat-label">Max Drawdown</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="perf-card">
-                    <div class="perf-header">
-                        <span class="perf-name">ALPHA</span>
-                        <span class="perf-category reactive">Reactive</span>
-                    </div>
-                    <div class="perf-chart">
-                        <div class="chart-line"></div>
-                    </div>
-                    <div class="perf-return positive">+49.6%</div>
-                    <div class="perf-period">1-Year Annualized Return</div>
-                    <div class="perf-stats">
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">1.01</div>
-                            <div class="perf-stat-label">Sharpe Ratio</div>
-                        </div>
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">-40.0%</div>
-                            <div class="perf-stat-label">Max Drawdown</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Growth Benchmarks -->
-                <div class="perf-card">
-                    <div class="perf-header">
-                        <span class="perf-name">SPY</span>
-                        <span class="perf-category growth">Benchmark</span>
-                    </div>
-                    <div class="perf-chart">
-                        <div class="chart-line"></div>
-                    </div>
-                    <div class="perf-return positive">+39.9%</div>
-                    <div class="perf-period">1-Year Annualized Return</div>
-                    <div class="perf-stats">
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">2.84</div>
-                            <div class="perf-stat-label">Sharpe Ratio</div>
-                        </div>
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">-8.4%</div>
-                            <div class="perf-stat-label">Max Drawdown</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="perf-card">
-                    <div class="perf-header">
-                        <span class="perf-name">QQQ</span>
-                        <span class="perf-category growth">Benchmark</span>
-                    </div>
-                    <div class="perf-chart">
-                        <div class="chart-line"></div>
-                    </div>
-                    <div class="perf-return positive">+42.2%</div>
-                    <div class="perf-period">1-Year Annualized Return</div>
-                    <div class="perf-stats">
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">2.13</div>
-                            <div class="perf-stat-label">Sharpe Ratio</div>
-                        </div>
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">-13.6%</div>
-                            <div class="perf-stat-label">Max Drawdown</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Safe Haven -->
-                <div class="perf-card">
-                    <div class="perf-header">
-                        <span class="perf-name">GLD</span>
-                        <span class="perf-category safe">Safe Haven</span>
-                    </div>
-                    <div class="perf-chart">
-                        <div class="chart-line"></div>
-                    </div>
-                    <div class="perf-return positive">+37.7%</div>
-                    <div class="perf-period">1-Year Annualized Return</div>
-                    <div class="perf-stats">
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">2.35</div>
-                            <div class="perf-stat-label">Sharpe Ratio</div>
-                        </div>
-                        <div class="perf-stat">
-                            <div class="perf-stat-value">-5.8%</div>
-                            <div class="perf-stat-label">Max Drawdown</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <p class="perf-disclaimer">Past performance is not indicative of future results. All returns shown are hypothetical backtested results and do not represent actual trading. See full disclaimers below.</p>
-
-            <div style="text-align: center;">
-                <a href="https://games.abacuswealthgroup.com/" class="explore-link">
-                    Explore Interactive Simulations
+            <div class="hero-buttons">
+                <a href="philosophy.html" class="hero-btn hero-btn-primary">Our Philosophy</a>
+                <a href="funds.html" class="hero-btn hero-btn-secondary">
+                    View Funds
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M3 8h10M9 4l4 4-4 4"/>
                     </svg>
@@ -1278,51 +883,194 @@
         </div>
     </section>
 
-    <!-- Research Section -->
-    <section class="research" id="research">
+    <!-- Market Data Section -->
+    <section class="market-data">
         <div class="section-container">
             <div class="section-header">
-                <p class="section-label">Research & Insights</p>
-                <h2>Quantitative Research</h2>
-                <p class="section-desc">Deep analysis and thought leadership from our research team.</p>
+                <p class="section-label">Live Market Data</p>
+                <h2>Market Overview</h2>
+                <p class="section-desc">Real-time market indicators and index performance.</p>
+            </div>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <div class="chart-title">S&P 500</div>
+                            <div class="chart-subtitle">SPY ETF</div>
+                        </div>
+                        <div class="chart-value">
+                            <div class="chart-price" id="spy-price">--</div>
+                            <div class="chart-change" id="spy-change">--</div>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="spy-chart"></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <div class="chart-title">NASDAQ 100</div>
+                            <div class="chart-subtitle">QQQ ETF</div>
+                        </div>
+                        <div class="chart-value">
+                            <div class="chart-price" id="qqq-price">--</div>
+                            <div class="chart-change" id="qqq-change">--</div>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="qqq-chart"></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div>
+                            <div class="chart-title">Volatility Index</div>
+                            <div class="chart-subtitle">VIX</div>
+                        </div>
+                        <div class="chart-value">
+                            <div class="chart-price" id="vix-price">--</div>
+                            <div class="chart-change" id="vix-change">--</div>
+                        </div>
+                    </div>
+                    <div class="chart-container" id="vix-chart"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fund Preview Section -->
+    <section class="fund-preview">
+        <div class="section-container">
+            <div class="section-header">
+                <p class="section-label">Our Strategies</p>
+                <h2>Fund Performance</h2>
+                <p class="section-desc">Systematic investment strategies designed to generate returns across market environments.</p>
+            </div>
+            <div class="fund-cards">
+                <div class="fund-card">
+                    <span class="fund-tag reactive">Multi-Asset</span>
+                    <h3>OMNI</h3>
+                    <p>Multi-asset momentum strategy with dynamic allocation across global markets. Designed to capture trends while limiting drawdowns.</p>
+                    <div class="fund-metrics">
+                        <div class="fund-metric">
+                            <div class="fund-metric-value positive">+125.9%</div>
+                            <div class="fund-metric-label">YTD Return</div>
+                        </div>
+                        <div class="fund-metric">
+                            <div class="fund-metric-value">1.92</div>
+                            <div class="fund-metric-label">Sharpe</div>
+                        </div>
+                        <div class="fund-metric">
+                            <div class="fund-metric-value">-25.1%</div>
+                            <div class="fund-metric-label">Max DD</div>
+                        </div>
+                    </div>
+                    <a href="https://algo.abacuswealthgroup.com/" class="fund-link">
+                        View Full Performance
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8h10M9 4l4 4-4 4"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="fund-card">
+                    <span class="fund-tag defensive">Defensive</span>
+                    <h3>SHIELD</h3>
+                    <p>Capital preservation strategy optimized for volatile markets. Emphasizes downside protection with systematic hedging.</p>
+                    <div class="fund-metrics">
+                        <div class="fund-metric">
+                            <div class="fund-metric-value positive">+18.9%</div>
+                            <div class="fund-metric-label">YTD Return</div>
+                        </div>
+                        <div class="fund-metric">
+                            <div class="fund-metric-value">1.26</div>
+                            <div class="fund-metric-label">Sharpe</div>
+                        </div>
+                        <div class="fund-metric">
+                            <div class="fund-metric-value">-7.1%</div>
+                            <div class="fund-metric-label">Max DD</div>
+                        </div>
+                    </div>
+                    <a href="https://algo.abacuswealthgroup.com/" class="fund-link">
+                        View Full Performance
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8h10M9 4l4 4-4 4"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="fund-card">
+                    <span class="fund-tag growth">Factor-Based</span>
+                    <h3>ALPHA</h3>
+                    <p>Factor-based equity strategy targeting systematic alpha through exposure to value, momentum, quality, and low volatility.</p>
+                    <div class="fund-metrics">
+                        <div class="fund-metric">
+                            <div class="fund-metric-value positive">+49.6%</div>
+                            <div class="fund-metric-label">YTD Return</div>
+                        </div>
+                        <div class="fund-metric">
+                            <div class="fund-metric-value">1.01</div>
+                            <div class="fund-metric-label">Sharpe</div>
+                        </div>
+                        <div class="fund-metric">
+                            <div class="fund-metric-value">-40.0%</div>
+                            <div class="fund-metric-label">Max DD</div>
+                        </div>
+                    </div>
+                    <a href="https://algo.abacuswealthgroup.com/" class="fund-link">
+                        View Full Performance
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8h10M9 4l4 4-4 4"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Feed Section -->
+    <section class="research-feed">
+        <div class="section-container">
+            <div class="section-header">
+                <p class="section-label">Insights</p>
+                <h2>Latest Research</h2>
+                <p class="section-desc">Deep analysis and thought leadership from our quantitative research team.</p>
             </div>
             <div class="research-grid">
                 <div class="research-card">
-                    <div class="research-image">📈</div>
-                    <div class="research-content">
-                        <div class="research-meta">
-                            <span class="research-tag">Factor Analysis</span>
-                            <span class="research-date">January 2026</span>
-                        </div>
-                        <h3>Momentum Decay in Rising Rate Environments</h3>
-                        <p>An examination of how traditional momentum factors perform during Federal Reserve tightening cycles.</p>
+                    <div class="research-category">Factor Analysis</div>
+                    <h3>Momentum Decay in Rising Rate Environments</h3>
+                    <p>An examination of how traditional momentum factors perform during Federal Reserve tightening cycles.</p>
+                    <div class="research-meta">
+                        <span>January 2026</span>
+                        <span>8 min read</span>
                     </div>
                 </div>
                 <div class="research-card">
-                    <div class="research-image">🔄</div>
-                    <div class="research-content">
-                        <div class="research-meta">
-                            <span class="research-tag">Risk Management</span>
-                            <span class="research-date">December 2025</span>
-                        </div>
-                        <h3>Tail Risk Hedging with Systematic Strategies</h3>
-                        <p>Cost-effective approaches to portfolio insurance using options and dynamic allocation.</p>
+                    <div class="research-category">Risk Management</div>
+                    <h3>Tail Risk Hedging Strategies</h3>
+                    <p>Cost-effective approaches to portfolio insurance using options and dynamic allocation.</p>
+                    <div class="research-meta">
+                        <span>December 2025</span>
+                        <span>12 min read</span>
                     </div>
                 </div>
                 <div class="research-card">
-                    <div class="research-image">🌐</div>
-                    <div class="research-content">
-                        <div class="research-meta">
-                            <span class="research-tag">Macro Signals</span>
-                            <span class="research-date">November 2025</span>
-                        </div>
-                        <h3>Cross-Asset Correlations During Regime Changes</h3>
-                        <p>How correlation structures break down during market stress and implications for diversification.</p>
+                    <div class="research-category">Macro Signals</div>
+                    <h3>Cross-Asset Correlations During Regime Changes</h3>
+                    <p>How correlation structures break down during market stress and implications for diversification.</p>
+                    <div class="research-meta">
+                        <span>November 2025</span>
+                        <span>10 min read</span>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <div class="research-category">Market Structure</div>
+                    <h3>Liquidity Dynamics in Modern Markets</h3>
+                    <p>Understanding market microstructure changes and their impact on execution quality.</p>
+                    <div class="research-meta">
+                        <span>October 2025</span>
+                        <span>15 min read</span>
                     </div>
                 </div>
             </div>
             <div class="research-cta">
-                <a href="#" class="btn-outline">
+                <a href="research.html" class="btn-outline">
                     View All Research
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -1333,7 +1081,7 @@
     </section>
 
     <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="footer-container">
             <div class="footer-top">
                 <div class="footer-brand">
@@ -1343,25 +1091,22 @@
                 <div class="footer-column">
                     <h4>Company</h4>
                     <ul>
-                        <li><a href="#philosophy">Philosophy</a></li>
-                        <li><a href="#strategies">Strategies</a></li>
-                        <li><a href="#performance">Performance</a></li>
-                        <li><a href="#research">Research</a></li>
+                        <li><a href="philosophy.html">Philosophy</a></li>
+                        <li><a href="research.html">Research</a></li>
+                        <li><a href="funds.html">Funds</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h4>Resources</h4>
                     <ul>
+                        <li><a href="https://algo.abacuswealthgroup.com/">Algorithm Performance</a></li>
                         <li><a href="https://games.abacuswealthgroup.com/">Interactive Simulations</a></li>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API Access</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h4>Contact</h4>
                     <ul>
                         <li><a href="mailto:info@abacuswealthgroup.com">info@abacuswealthgroup.com</a></li>
-                        <li><a href="#">Schedule Consultation</a></li>
                     </ul>
                 </div>
             </div>
@@ -1375,7 +1120,219 @@
     </footer>
 
     <script>
-        // Navigation scroll effect
+        // ============ CONFIGURATION ============
+        // To enable live data, sign up for a free API key at https://finnhub.io/
+        // Then replace 'YOUR_FINNHUB_API_KEY' below with your actual key
+        const FINNHUB_API_KEY = 'YOUR_FINNHUB_API_KEY';
+        const USE_LIVE_DATA = FINNHUB_API_KEY !== 'YOUR_FINNHUB_API_KEY';
+
+        // ============ TICKER DATA ============
+        const tickerSymbols = [
+            { symbol: 'SPY', name: 'S&P 500' },
+            { symbol: 'QQQ', name: 'NASDAQ' },
+            { symbol: 'DIA', name: 'Dow Jones' },
+            { symbol: 'IWM', name: 'Russell 2000' },
+            { symbol: 'GLD', name: 'Gold' },
+            { symbol: 'TLT', name: 'Bonds' },
+            { symbol: 'VIX', name: 'Volatility' }
+        ];
+
+        // Simulated data for fallback
+        const simulatedData = {
+            SPY: { price: 598.45, change: 1.23, pct: 0.21 },
+            QQQ: { price: 521.78, change: 2.15, pct: 0.41 },
+            DIA: { price: 438.92, change: -0.87, pct: -0.20 },
+            IWM: { price: 224.15, change: 0.95, pct: 0.43 },
+            GLD: { price: 242.30, change: 1.45, pct: 0.60 },
+            TLT: { price: 87.45, change: -0.32, pct: -0.36 },
+            VIX: { price: 14.25, change: -0.45, pct: -3.06 }
+        };
+
+        // ============ INITIALIZE TICKER ============
+        function initTicker() {
+            const track = document.getElementById('tickerTrack');
+            const status = document.getElementById('tickerStatus');
+
+            function renderTicker(data) {
+                let html = '';
+                // Duplicate for infinite scroll effect
+                for (let i = 0; i < 2; i++) {
+                    tickerSymbols.forEach(item => {
+                        const quote = data[item.symbol];
+                        if (quote) {
+                            const isUp = quote.change >= 0;
+                            html += `
+                                <div class="ticker-item">
+                                    <span class="ticker-symbol">${item.symbol}</span>
+                                    <span class="ticker-price">$${quote.price.toFixed(2)}</span>
+                                    <span class="ticker-change ${isUp ? 'up' : 'down'}">
+                                        ${isUp ? '+' : ''}${quote.change.toFixed(2)} (${isUp ? '+' : ''}${quote.pct.toFixed(2)}%)
+                                    </span>
+                                </div>
+                            `;
+                        }
+                    });
+                }
+                track.innerHTML = html;
+            }
+
+            if (USE_LIVE_DATA) {
+                // Fetch live data from Finnhub
+                async function fetchLiveData() {
+                    try {
+                        const quotes = {};
+                        await Promise.all(tickerSymbols.map(async (item) => {
+                            const res = await fetch(`https://finnhub.io/api/v1/quote?symbol=${item.symbol}&token=${FINNHUB_API_KEY}`);
+                            const data = await res.json();
+                            if (data.c) {
+                                quotes[item.symbol] = {
+                                    price: data.c,
+                                    change: data.d || 0,
+                                    pct: data.dp || 0
+                                };
+                            }
+                        }));
+                        renderTicker(quotes);
+                        status.textContent = 'Live';
+                        status.style.color = '#10b981';
+
+                        // Cache data
+                        localStorage.setItem('tickerData', JSON.stringify(quotes));
+                        localStorage.setItem('tickerTimestamp', Date.now().toString());
+                    } catch (error) {
+                        console.error('Failed to fetch live data:', error);
+                        // Use cached or simulated data
+                        const cached = localStorage.getItem('tickerData');
+                        if (cached) {
+                            renderTicker(JSON.parse(cached));
+                            status.textContent = 'Cached';
+                        } else {
+                            renderTicker(simulatedData);
+                            status.textContent = 'Delayed';
+                        }
+                    }
+                }
+
+                fetchLiveData();
+                // Refresh every 60 seconds
+                setInterval(fetchLiveData, 60000);
+            } else {
+                // Use simulated data
+                renderTicker(simulatedData);
+                status.textContent = 'Demo';
+            }
+        }
+
+        // ============ INITIALIZE CHARTS ============
+        function initCharts() {
+            const chartConfigs = [
+                { id: 'spy-chart', priceId: 'spy-price', changeId: 'spy-change', symbol: 'SPY', color: '#10b981' },
+                { id: 'qqq-chart', priceId: 'qqq-price', changeId: 'qqq-change', symbol: 'QQQ', color: '#3b82f6' },
+                { id: 'vix-chart', priceId: 'vix-price', changeId: 'vix-change', symbol: 'VIX', color: '#f59e0b' }
+            ];
+
+            chartConfigs.forEach(config => {
+                const container = document.getElementById(config.id);
+                if (!container) return;
+
+                const chart = LightweightCharts.createChart(container, {
+                    width: container.clientWidth,
+                    height: 200,
+                    layout: {
+                        background: { type: 'solid', color: 'transparent' },
+                        textColor: '#6b7d8d'
+                    },
+                    grid: {
+                        vertLines: { visible: false },
+                        horzLines: { color: 'rgba(0, 0, 0, 0.05)' }
+                    },
+                    crosshair: {
+                        mode: LightweightCharts.CrosshairMode.Normal
+                    },
+                    rightPriceScale: {
+                        borderVisible: false,
+                        scaleMargins: { top: 0.1, bottom: 0.1 }
+                    },
+                    timeScale: {
+                        borderVisible: false,
+                        timeVisible: false
+                    },
+                    handleScroll: false,
+                    handleScale: false
+                });
+
+                const areaSeries = chart.addAreaSeries({
+                    topColor: config.color + '40',
+                    bottomColor: config.color + '00',
+                    lineColor: config.color,
+                    lineWidth: 2
+                });
+
+                // Generate sample data (last 30 days)
+                const data = generateChartData(config.symbol);
+                areaSeries.setData(data);
+
+                // Update price display
+                const lastPoint = data[data.length - 1];
+                const firstPoint = data[0];
+                const priceEl = document.getElementById(config.priceId);
+                const changeEl = document.getElementById(config.changeId);
+
+                if (priceEl && lastPoint) {
+                    priceEl.textContent = config.symbol === 'VIX' ?
+                        lastPoint.value.toFixed(2) :
+                        '$' + lastPoint.value.toFixed(2);
+                }
+
+                if (changeEl && lastPoint && firstPoint) {
+                    const change = ((lastPoint.value - firstPoint.value) / firstPoint.value) * 100;
+                    const isUp = change >= 0;
+                    changeEl.textContent = `${isUp ? '+' : ''}${change.toFixed(2)}%`;
+                    changeEl.className = `chart-change ${isUp ? 'up' : 'down'}`;
+                }
+
+                // Handle resize
+                window.addEventListener('resize', () => {
+                    chart.applyOptions({ width: container.clientWidth });
+                });
+            });
+        }
+
+        function generateChartData(symbol) {
+            const data = [];
+            const now = new Date();
+
+            // Base prices for different symbols
+            const basePrices = {
+                SPY: 580,
+                QQQ: 510,
+                VIX: 16
+            };
+
+            let price = basePrices[symbol] || 100;
+            const volatility = symbol === 'VIX' ? 0.03 : 0.008;
+
+            for (let i = 30; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - i);
+
+                // Skip weekends
+                if (date.getDay() === 0 || date.getDay() === 6) continue;
+
+                // Add some randomness
+                const change = (Math.random() - 0.48) * volatility * price;
+                price += change;
+
+                data.push({
+                    time: date.toISOString().split('T')[0],
+                    value: price
+                });
+            }
+
+            return data;
+        }
+
+        // ============ NAVIGATION ============
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -1385,51 +1342,16 @@
             }
         });
 
-        // Mobile menu toggle
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
 
-        // Scroll reveal animation
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 100);
-                }
-            });
-        }, observerOptions);
-
-        // Observe all animatable elements
-        document.querySelectorAll('.philosophy-item, .strategy-card, .perf-card, .research-card').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const navHeight = navbar.offsetHeight;
-                    const targetPosition = target.offsetTop - navHeight;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                    // Close mobile menu if open
-                    navLinks.classList.remove('active');
-                }
-            });
+        // ============ INITIALIZE ============
+        document.addEventListener('DOMContentLoaded', () => {
+            initTicker();
+            initCharts();
         });
     </script>
 </body>
