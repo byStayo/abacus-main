@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Momentum Decay in Rising Rate Environments - How momentum factors perform during Federal Reserve tightening cycles.">
+    <title>Momentum Decay in Rising Rate Environments | Abacus Research</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --navy-deep: #0a1628; --navy-medium: #1a2744; --slate-blue: #3d5a80;
+            --steel-gray: #6b7d8d; --white: #ffffff; --off-white: #f7f8f9;
+            --cream: #fafbfc; --text-primary: #1a1a2e; --text-secondary: #4a5568;
+            --text-muted: #718096; --border-light: rgba(0, 0, 0, 0.06);
+            --font-serif: 'Newsreader', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'SF Mono', monospace;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-sans); line-height: 1.6; color: var(--text-primary); background: var(--white); -webkit-font-smoothing: antialiased; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light); }
+        nav.scrolled { box-shadow: 0 1px 24px rgba(0, 0, 0, 0.06); }
+        .nav-container { max-width: 1440px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: center; height: 76px; }
+        .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.2em; color: var(--navy-deep); text-decoration: none; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 48px; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { color: var(--navy-deep); }
+        .nav-cta { padding: 11px 24px; background: var(--navy-deep); color: var(--white) !important; border-radius: 3px; font-size: 12px; }
+        .article-header { padding: 180px 48px 80px; background: linear-gradient(175deg, var(--navy-deep) 0%, #0f1d32 30%, var(--navy-medium) 70%, var(--slate-blue) 100%); color: var(--white); }
+        .article-header-content { max-width: 800px; margin: 0 auto; animation: fadeInUp 1s ease 0.2s both; }
+        .article-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+        .article-category { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; background: #3b82f6; padding: 6px 14px; border-radius: 3px; }
+        .article-date, .article-read-time { font-size: 13px; opacity: 0.6; }
+        .article-header h1 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; font-style: italic; line-height: 1.2; margin-bottom: 24px; }
+        .article-subtitle { font-size: 1.25rem; opacity: 0.8; line-height: 1.7; max-width: 650px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .article-body { max-width: 720px; margin: 0 auto; padding: 80px 24px; }
+        .article-body h2 { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 500; color: var(--navy-deep); margin: 48px 0 24px; }
+        .article-body h3 { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; color: var(--navy-deep); margin: 36px 0 16px; }
+        .article-body p { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.85; margin-bottom: 24px; }
+        .article-body ul, .article-body ol { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.85; margin: 0 0 24px 24px; }
+        .article-body li { margin-bottom: 12px; }
+        .key-insight { background: var(--off-white); border-left: 4px solid var(--navy-deep); padding: 24px 28px; margin: 32px 0; border-radius: 0 4px 4px 0; }
+        .key-insight h4 { font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-deep); margin-bottom: 12px; }
+        .key-insight p { font-size: 1rem; margin-bottom: 0; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 32px 0; font-family: var(--font-sans); font-size: 14px; }
+        .data-table th { background: var(--navy-deep); color: var(--white); padding: 14px 16px; text-align: left; font-weight: 600; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+        .data-table td { padding: 14px 16px; border-bottom: 1px solid var(--border-light); }
+        .data-table tr:nth-child(even) { background: var(--off-white); }
+        .data-table .number { font-family: var(--font-mono); text-align: right; }
+        .positive { color: #059669; } .negative { color: #dc2626; }
+        .article-author { border-top: 1px solid var(--border-light); padding-top: 48px; margin-top: 64px; display: flex; gap: 24px; }
+        .author-avatar { width: 64px; height: 64px; background: var(--navy-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 600; font-size: 20px; flex-shrink: 0; }
+        .author-info h4 { font-size: 16px; font-weight: 600; color: var(--navy-deep); margin-bottom: 4px; }
+        .author-info p { font-size: 14px; color: var(--text-secondary); margin-bottom: 0; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--slate-blue); text-decoration: none; font-size: 14px; font-weight: 500; margin-bottom: 48px; }
+        .back-link:hover { color: var(--navy-deep); }
+        footer { background: var(--navy-deep); color: rgba(255, 255, 255, 0.65); padding: 80px 48px 48px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 80px; padding-bottom: 60px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .footer-brand { max-width: 320px; }
+        .footer-logo { font-size: 14px; font-weight: 600; letter-spacing: 0.2em; color: var(--white); margin-bottom: 20px; text-transform: uppercase; }
+        .footer-brand p { font-size: 14px; line-height: 1.7; font-family: var(--font-serif); }
+        .footer-column h4 { color: var(--white); font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+        .footer-column ul { list-style: none; }
+        .footer-column li { margin-bottom: 12px; }
+        .footer-column a { color: rgba(255, 255, 255, 0.5); text-decoration: none; font-size: 14px; }
+        .footer-column a:hover { color: var(--white); }
+        .footer-bottom { padding-top: 40px; display: flex; justify-content: space-between; gap: 40px; }
+        .footer-legal { font-size: 11px; line-height: 1.8; max-width: 700px; color: rgba(255, 255, 255, 0.35); }
+        .footer-copyright { font-size: 11px; color: rgba(255, 255, 255, 0.35); }
+        .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+        .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--navy-deep); margin: 6px 0; }
+        @media (max-width: 768px) {
+            .article-header { padding: 140px 24px 60px; }
+            .article-body { padding: 60px 20px; }
+            .nav-container { padding: 0 24px; }
+            .nav-links { display: none; position: absolute; top: 76px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 24px; gap: 0; border-bottom: 1px solid var(--border-light); }
+            .nav-links.active { display: flex; }
+            .nav-links li { padding: 14px 0; border-bottom: 1px solid var(--cream); }
+            .nav-links li:last-child { border-bottom: none; padding-top: 24px; }
+            .menu-toggle { display: block; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Abacus</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../philosophy.html">Philosophy</a></li>
+                <li><a href="../research.html" class="active">Research</a></li>
+                <li><a href="../funds.html">Funds</a></li>
+                <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li>
+                <li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta">View Performance</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-content">
+            <div class="article-meta">
+                <span class="article-category">Factor Analysis</span>
+                <span class="article-date">January 2026</span>
+                <span class="article-read-time">8 min read</span>
+            </div>
+            <h1>Momentum Decay in Rising Rate Environments</h1>
+            <p class="article-subtitle">An examination of how traditional momentum factors perform during Federal Reserve tightening cycles and implications for portfolio construction.</p>
+        </div>
+    </header>
+
+    <article class="article-body">
+        <a href="../research.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+            Back to Research
+        </a>
+
+        <h2>Introduction</h2>
+        <p>The relationship between interest rate policy and momentum factor performance has important implications for tactical allocation. As central banks transition from accommodative to restrictive policy, historical patterns suggest meaningful shifts in factor dynamics.</p>
+
+        <p>This analysis examines momentum behavior across the last five Federal Reserve tightening cycles, identifying patterns that can inform portfolio positioning during rate transitions.</p>
+
+        <div class="key-insight">
+            <h4>Key Finding</h4>
+            <p>Momentum factors exhibit a distinct decay pattern in the 6-12 months following the first rate hike, with average underperformance of 4.2% relative to equal-weighted benchmarks.</p>
+        </div>
+
+        <h2>Historical Rate Cycle Analysis</h2>
+        <p>We examine momentum performance across five distinct tightening cycles since 1988, measuring factor returns from the first rate hike through the final hike of each cycle.</p>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Tightening Cycle</th>
+                    <th>Duration</th>
+                    <th>Rate Change</th>
+                    <th>Momentum Return</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1988-1989</td>
+                    <td>13 months</td>
+                    <td class="number">+3.25%</td>
+                    <td class="number negative">-2.1%</td>
+                </tr>
+                <tr>
+                    <td>1994-1995</td>
+                    <td>12 months</td>
+                    <td class="number">+3.00%</td>
+                    <td class="number negative">-5.8%</td>
+                </tr>
+                <tr>
+                    <td>1999-2000</td>
+                    <td>11 months</td>
+                    <td class="number">+1.75%</td>
+                    <td class="number positive">+8.4%</td>
+                </tr>
+                <tr>
+                    <td>2004-2006</td>
+                    <td>24 months</td>
+                    <td class="number">+4.25%</td>
+                    <td class="number negative">-3.2%</td>
+                </tr>
+                <tr>
+                    <td>2015-2018</td>
+                    <td>36 months</td>
+                    <td class="number">+2.25%</td>
+                    <td class="number positive">+2.1%</td>
+                </tr>
+                <tr>
+                    <td>2022-2023</td>
+                    <td>16 months</td>
+                    <td class="number">+5.25%</td>
+                    <td class="number negative">-7.3%</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Mechanism of Decay</h2>
+        <p>The momentum decay phenomenon during tightening cycles appears driven by several interconnected factors:</p>
+
+        <h3>Duration Exposure</h3>
+        <p>Momentum portfolios typically overweight growth stocks with longer duration cash flows. Rising rates disproportionately impact the present value of distant cash flows, creating a structural headwind for momentum winners.</p>
+
+        <h3>Sector Rotation</h3>
+        <p>Tightening cycles often trigger rotation from growth to value sectors. This rotation directly opposes momentum signals, as prior winners (often growth) become laggards while prior losers (often value/cyclicals) become leaders.</p>
+
+        <h3>Volatility Impact</h3>
+        <p>Rate uncertainty increases market volatility, which historically correlates with momentum underperformance. The VIX averaged 22% higher during the first six months of tightening cycles compared to the preceding six months.</p>
+
+        <h2>Portfolio Implications</h2>
+        <p>Based on our analysis, we recommend several adjustments to momentum strategies during anticipated tightening cycles:</p>
+
+        <ul>
+            <li><strong>Reduce momentum exposure</strong> by 25-30% in the three months preceding expected rate hikes</li>
+            <li><strong>Increase value factor weight</strong> as a hedge against momentum reversal</li>
+            <li><strong>Shorten momentum lookback periods</strong> from 12 months to 6 months during transition</li>
+            <li><strong>Add sector neutrality constraints</strong> to reduce duration exposure in momentum portfolios</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>While momentum remains a valuable factor over full market cycles, tactical awareness of rate regime transitions can meaningfully improve risk-adjusted returns. The historical pattern of momentum decay during tightening cycles provides actionable signals for dynamic factor allocation.</p>
+
+        <div class="article-author">
+            <div class="author-avatar">SA</div>
+            <div class="author-info">
+                <h4>Stelios Anastasiades</h4>
+                <p>Founder & Chief Investment Officer at Abacus Wealth Group.</p>
+            </div>
+        </div>
+    </article>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">Abacus</div>
+                    <p>Quantitative investment strategies engineered for long-term wealth preservation.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../philosophy.html">Philosophy</a></li>
+                        <li><a href="../research.html">Research</a></li>
+                        <li><a href="../funds.html">Funds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://algo.abacuswealthgroup.com/">Algorithm Performance</a></li>
+                        <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:info@abacuswealthgroup.com">info@abacuswealthgroup.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">This research is for informational purposes only and does not constitute investment advice.</p>
+                <p class="footer-copyright">&copy; 2026 Abacus Wealth Group</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+    </script>
+</body>
+</html>

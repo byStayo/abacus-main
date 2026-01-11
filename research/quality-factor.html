@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quality Factor Construction Methods - Comparing approaches to building quality factor portfolios.">
+    <title>Quality Factor Construction Methods | Abacus Research</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --navy-deep: #0a1628; --navy-medium: #1a2744; --slate-blue: #3d5a80; --steel-gray: #6b7d8d; --white: #ffffff; --off-white: #f7f8f9; --text-primary: #1a1a2e; --text-secondary: #4a5568; --border-light: rgba(0, 0, 0, 0.06); --font-serif: 'Newsreader', Georgia, serif; --font-sans: 'Inter', -apple-system, sans-serif; }
+        html { scroll-behavior: smooth; } body { font-family: var(--font-sans); line-height: 1.6; color: var(--text-primary); background: var(--white); }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light); }
+        nav.scrolled { box-shadow: 0 1px 24px rgba(0, 0, 0, 0.06); }
+        .nav-container { max-width: 1440px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: center; height: 76px; }
+        .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.2em; color: var(--navy-deep); text-decoration: none; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 48px; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { color: var(--navy-deep); }
+        .nav-cta { padding: 11px 24px; background: var(--navy-deep); color: var(--white) !important; border-radius: 3px; font-size: 12px; }
+        .article-header { padding: 180px 48px 80px; background: linear-gradient(175deg, var(--navy-deep) 0%, #0f1d32 30%, var(--navy-medium) 70%, var(--slate-blue) 100%); color: var(--white); }
+        .article-header-content { max-width: 800px; margin: 0 auto; animation: fadeInUp 1s ease 0.2s both; }
+        .article-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+        .article-category { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; background: #3b82f6; padding: 6px 14px; border-radius: 3px; }
+        .article-date, .article-read-time { font-size: 13px; opacity: 0.6; }
+        .article-header h1 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; font-style: italic; line-height: 1.2; margin-bottom: 24px; }
+        .article-subtitle { font-size: 1.25rem; opacity: 0.8; line-height: 1.7; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .article-body { max-width: 720px; margin: 0 auto; padding: 80px 24px; }
+        .article-body h2 { font-family: var(--font-serif); font-size: 1.75rem; color: var(--navy-deep); margin: 48px 0 24px; }
+        .article-body h3 { font-family: var(--font-serif); font-size: 1.35rem; color: var(--navy-deep); margin: 36px 0 16px; }
+        .article-body p { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.85; margin-bottom: 24px; }
+        .article-body ul { font-family: var(--font-serif); font-size: 1.125rem; margin: 0 0 24px 24px; }
+        .article-body li { margin-bottom: 12px; }
+        .key-insight { background: var(--off-white); border-left: 4px solid var(--navy-deep); padding: 24px 28px; margin: 32px 0; }
+        .key-insight h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-deep); margin-bottom: 12px; }
+        .key-insight p { font-size: 1rem; margin-bottom: 0; }
+        .article-author { border-top: 1px solid var(--border-light); padding-top: 48px; margin-top: 64px; display: flex; gap: 24px; }
+        .author-avatar { width: 64px; height: 64px; background: var(--navy-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 600; font-size: 20px; }
+        .author-info h4 { font-size: 16px; font-weight: 600; color: var(--navy-deep); margin-bottom: 4px; }
+        .author-info p { font-size: 14px; color: var(--text-secondary); margin-bottom: 0; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--slate-blue); text-decoration: none; font-size: 14px; margin-bottom: 48px; }
+        footer { background: var(--navy-deep); color: rgba(255, 255, 255, 0.65); padding: 80px 48px 48px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 80px; padding-bottom: 60px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .footer-brand { max-width: 320px; } .footer-logo { font-size: 14px; font-weight: 600; letter-spacing: 0.2em; color: var(--white); margin-bottom: 20px; text-transform: uppercase; }
+        .footer-brand p { font-size: 14px; font-family: var(--font-serif); }
+        .footer-column h4 { color: var(--white); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+        .footer-column ul { list-style: none; } .footer-column li { margin-bottom: 12px; }
+        .footer-column a { color: rgba(255, 255, 255, 0.5); text-decoration: none; font-size: 14px; }
+        .footer-bottom { padding-top: 40px; display: flex; justify-content: space-between; }
+        .footer-legal { font-size: 11px; color: rgba(255, 255, 255, 0.35); } .footer-copyright { font-size: 11px; color: rgba(255, 255, 255, 0.35); }
+        .menu-toggle { display: none; background: none; border: none; cursor: pointer; }
+        .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--navy-deep); margin: 6px 0; }
+        @media (max-width: 768px) { .article-header { padding: 140px 24px 60px; } .article-body { padding: 60px 20px; } .nav-container { padding: 0 24px; } .nav-links { display: none; position: absolute; top: 76px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 24px; } .nav-links.active { display: flex; } .menu-toggle { display: block; } .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; text-align: center; } }
+    </style>
+</head>
+<body>
+    <nav id="navbar"><div class="nav-container"><a href="../index.html" class="logo">Abacus</a><button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button><ul class="nav-links" id="navLinks"><li><a href="../philosophy.html">Philosophy</a></li><li><a href="../research.html" class="active">Research</a></li><li><a href="../funds.html">Funds</a></li><li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li><li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta">View Performance</a></li></ul></div></nav>
+
+    <header class="article-header"><div class="article-header-content"><div class="article-meta"><span class="article-category">Factor Analysis</span><span class="article-date">May 2025</span><span class="article-read-time">20 min read</span></div><h1>Quality Factor Construction Methods</h1><p class="article-subtitle">Comparing different approaches to building quality factor portfolios and their out-of-sample performance.</p></div></header>
+
+    <article class="article-body">
+        <a href="../research.html" class="back-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>Back to Research</a>
+
+        <h2>Defining Quality</h2>
+        <p>Unlike value or momentum, "quality" lacks a consensus definition. Various practitioners and academics have proposed different metrics, all aiming to capture companies with superior fundamentals. This ambiguity creates both challenges and opportunities—the factor's efficacy depends critically on construction choices.</p>
+
+        <div class="key-insight"><h4>Quality's Resilience</h4><p>Quality has been one of the most consistent factors in recent years, outperforming during the growth drawdown of 2022 and providing stability when value and momentum struggled. Understanding why requires examining what quality actually captures.</p></div>
+
+        <h2>Common Quality Metrics</h2>
+        <p>We evaluate several widely-used quality indicators:</p>
+
+        <h3>Profitability Measures</h3>
+        <ul>
+            <li><strong>Return on Equity (ROE):</strong> Net income / shareholders' equity</li>
+            <li><strong>Return on Assets (ROA):</strong> Net income / total assets</li>
+            <li><strong>Gross Profitability:</strong> (Revenue - COGS) / assets, per Novy-Marx</li>
+            <li><strong>Operating Profitability:</strong> Operating income / book equity</li>
+        </ul>
+
+        <h3>Stability Measures</h3>
+        <ul>
+            <li><strong>Earnings stability:</strong> Inverse of earnings volatility over 5 years</li>
+            <li><strong>Low accruals:</strong> Companies with cash-based earnings</li>
+            <li><strong>Dividend consistency:</strong> Track record of stable/growing dividends</li>
+        </ul>
+
+        <h3>Safety Measures</h3>
+        <ul>
+            <li><strong>Low leverage:</strong> Debt/equity or debt/assets</li>
+            <li><strong>Interest coverage:</strong> EBIT / interest expense</li>
+            <li><strong>Low beta:</strong> Market sensitivity as proxy for business risk</li>
+        </ul>
+
+        <h2>Construction Approaches</h2>
+        <p>We compare four quality portfolio construction methodologies:</p>
+
+        <p><strong>Single-metric (Gross Profitability):</strong> Simple and transparent, but ignores other quality dimensions.</p>
+
+        <p><strong>Composite score:</strong> Equal-weight combination of profitability, stability, and safety metrics. More robust but requires subjective weighting choices.</p>
+
+        <p><strong>Sector-neutral:</strong> Apply quality screens within sectors rather than across the market. Reduces sector bets but may miss cross-sector quality dispersion.</p>
+
+        <p><strong>Quality-at-reasonable-price (QARP):</strong> Combine quality with valuation filters to avoid overpaying for quality. Addresses the criticism that quality is expensive.</p>
+
+        <h2>Empirical Results</h2>
+        <p>Across our testing period (2000-2025), we find:</p>
+        <ul>
+            <li>Composite approaches outperform single-metric by 1.2% annually</li>
+            <li>Sector-neutral construction reduces volatility by 15% with modest return sacrifice</li>
+            <li>QARP improves Sharpe ratio by 0.08 versus pure quality</li>
+            <li>Gross profitability remains the single best metric for simplicity</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>Quality factor portfolios can be constructed in many ways, and construction choices meaningfully impact performance. We favor composite approaches that combine multiple quality dimensions with sector-neutral implementation, accepting modest complexity for improved robustness. For simpler implementations, gross profitability remains the single most effective metric.</p>
+
+        <div class="article-author"><div class="author-avatar">SA</div><div class="author-info"><h4>Stelios Anastasiades</h4><p>Founder & Chief Investment Officer at Abacus Wealth Group.</p></div></div>
+    </article>
+
+    <footer><div class="footer-container"><div class="footer-top"><div class="footer-brand"><div class="footer-logo">Abacus</div><p>Quantitative investment strategies engineered for long-term wealth preservation.</p></div><div class="footer-column"><h4>Company</h4><ul><li><a href="../philosophy.html">Philosophy</a></li><li><a href="../research.html">Research</a></li><li><a href="../funds.html">Funds</a></li></ul></div><div class="footer-column"><h4>Resources</h4><ul><li><a href="https://algo.abacuswealthgroup.com/">Algorithm Performance</a></li><li><a href="https://games.abacuswealthgroup.com/">Abacus Games</a></li></ul></div><div class="footer-column"><h4>Contact</h4><ul><li><a href="mailto:info@abacuswealthgroup.com">info@abacuswealthgroup.com</a></li></ul></div></div><div class="footer-bottom"><p class="footer-legal">This research is for informational purposes only.</p><p class="footer-copyright">&copy; 2026 Abacus Wealth Group</p></div></div></footer>
+
+    <script>const navbar=document.getElementById('navbar');window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>50));document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('active'));</script>
+</body>
+</html>

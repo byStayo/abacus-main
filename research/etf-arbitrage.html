@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ETF Arbitrage and Price Discovery - How passive investing affects markets.">
+    <title>ETF Arbitrage and Price Discovery | Abacus Research</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --navy-deep: #0a1628; --navy-medium: #1a2744; --slate-blue: #3d5a80; --steel-gray: #6b7d8d; --white: #ffffff; --off-white: #f7f8f9; --text-primary: #1a1a2e; --text-secondary: #4a5568; --border-light: rgba(0, 0, 0, 0.06); --font-serif: 'Newsreader', Georgia, serif; --font-sans: 'Inter', -apple-system, sans-serif; }
+        html { scroll-behavior: smooth; } body { font-family: var(--font-sans); line-height: 1.6; color: var(--text-primary); background: var(--white); }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light); }
+        nav.scrolled { box-shadow: 0 1px 24px rgba(0, 0, 0, 0.06); }
+        .nav-container { max-width: 1440px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: center; height: 76px; }
+        .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.2em; color: var(--navy-deep); text-decoration: none; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 48px; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { color: var(--navy-deep); }
+        .nav-cta { padding: 11px 24px; background: var(--navy-deep); color: var(--white) !important; border-radius: 3px; font-size: 12px; }
+        .article-header { padding: 180px 48px 80px; background: linear-gradient(175deg, var(--navy-deep) 0%, #0f1d32 30%, var(--navy-medium) 70%, var(--slate-blue) 100%); color: var(--white); }
+        .article-header-content { max-width: 800px; margin: 0 auto; animation: fadeInUp 1s ease 0.2s both; }
+        .article-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
+        .article-category { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; background: #f59e0b; padding: 6px 14px; border-radius: 3px; }
+        .article-date, .article-read-time { font-size: 13px; opacity: 0.6; }
+        .article-header h1 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; font-style: italic; line-height: 1.2; margin-bottom: 24px; }
+        .article-subtitle { font-size: 1.25rem; opacity: 0.8; line-height: 1.7; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .article-body { max-width: 720px; margin: 0 auto; padding: 80px 24px; }
+        .article-body h2 { font-family: var(--font-serif); font-size: 1.75rem; color: var(--navy-deep); margin: 48px 0 24px; }
+        .article-body p { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.85; margin-bottom: 24px; }
+        .article-body ul { font-family: var(--font-serif); font-size: 1.125rem; margin: 0 0 24px 24px; }
+        .article-body li { margin-bottom: 12px; }
+        .key-insight { background: var(--off-white); border-left: 4px solid var(--navy-deep); padding: 24px 28px; margin: 32px 0; }
+        .key-insight h4 { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-deep); margin-bottom: 12px; }
+        .key-insight p { font-size: 1rem; margin-bottom: 0; }
+        .article-author { border-top: 1px solid var(--border-light); padding-top: 48px; margin-top: 64px; display: flex; gap: 24px; }
+        .author-avatar { width: 64px; height: 64px; background: var(--navy-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 600; font-size: 20px; }
+        .author-info h4 { font-size: 16px; font-weight: 600; color: var(--navy-deep); margin-bottom: 4px; }
+        .author-info p { font-size: 14px; color: var(--text-secondary); margin-bottom: 0; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--slate-blue); text-decoration: none; font-size: 14px; margin-bottom: 48px; }
+        footer { background: var(--navy-deep); color: rgba(255, 255, 255, 0.65); padding: 80px 48px 48px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 80px; padding-bottom: 60px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .footer-brand { max-width: 320px; } .footer-logo { font-size: 14px; font-weight: 600; letter-spacing: 0.2em; color: var(--white); margin-bottom: 20px; text-transform: uppercase; }
+        .footer-brand p { font-size: 14px; font-family: var(--font-serif); }
+        .footer-column h4 { color: var(--white); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+        .footer-column ul { list-style: none; } .footer-column li { margin-bottom: 12px; }
+        .footer-column a { color: rgba(255, 255, 255, 0.5); text-decoration: none; font-size: 14px; }
+        .footer-bottom { padding-top: 40px; display: flex; justify-content: space-between; }
+        .footer-legal { font-size: 11px; color: rgba(255, 255, 255, 0.35); } .footer-copyright { font-size: 11px; color: rgba(255, 255, 255, 0.35); }
+        .menu-toggle { display: none; background: none; border: none; cursor: pointer; }
+        .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--navy-deep); margin: 6px 0; }
+        @media (max-width: 768px) { .article-header { padding: 140px 24px 60px; } .article-body { padding: 60px 20px; } .nav-container { padding: 0 24px; } .nav-links { display: none; position: absolute; top: 76px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 24px; } .nav-links.active { display: flex; } .menu-toggle { display: block; } .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; text-align: center; } }
+    </style>
+</head>
+<body>
+    <nav id="navbar"><div class="nav-container"><a href="../index.html" class="logo">Abacus</a><button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button><ul class="nav-links" id="navLinks"><li><a href="../philosophy.html">Philosophy</a></li><li><a href="../research.html" class="active">Research</a></li><li><a href="../funds.html">Funds</a></li><li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li><li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta">View Performance</a></li></ul></div></nav>
+
+    <header class="article-header"><div class="article-header-content"><div class="article-meta"><span class="article-category">Market Structure</span><span class="article-date">June 2025</span><span class="article-read-time">16 min read</span></div><h1>ETF Arbitrage and Price Discovery</h1><p class="article-subtitle">How the growth of passive investing affects price discovery and creates opportunities for active strategies.</p></div></header>
+
+    <article class="article-body">
+        <a href="../research.html" class="back-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>Back to Research</a>
+
+        <h2>The Passive Revolution</h2>
+        <p>Passive investing has transformed financial markets. Index funds and ETFs now hold over 50% of U.S. equity assets, up from less than 10% in 2000. This shift has profound implications for price discovery, market efficiency, and active management opportunities.</p>
+
+        <div class="key-insight"><h4>The Scale of Passive</h4><p>On a typical day, index rebalancing flows exceed $2 billion, often predictable days or weeks in advance. Annual index reconstitution events can move individual stock prices by 5-10%.</p></div>
+
+        <h2>How ETF Arbitrage Works</h2>
+        <p>ETFs maintain price efficiency through authorized participant (AP) arbitrage. When an ETF trades at a premium to its net asset value (NAV), APs create new shares by buying underlying securities and exchanging them for ETF shares. When trading at a discount, they redeem shares and sell the underlying. This mechanism typically keeps ETF prices within 10-50 basis points of NAV for liquid funds.</p>
+
+        <h2>Market Structure Implications</h2>
+        <p>The growth of passive investing creates several market structure effects:</p>
+        <ul>
+            <li><strong>Increased correlation:</strong> Stocks within indices move together more as flows dominate fundamentals</li>
+            <li><strong>Index inclusion effects:</strong> Stocks added to major indices experience permanent valuation increases</li>
+            <li><strong>Predictable flows:</strong> Index rebalancing creates forecastable demand that can be exploited</li>
+            <li><strong>Liquidity concentration:</strong> Trading increasingly concentrated in index constituents</li>
+        </ul>
+
+        <h2>Opportunities for Active Strategies</h2>
+        <p>The passive ecosystem creates several systematic opportunities:</p>
+
+        <p><strong>Index arbitrage:</strong> Trading ahead of predictable index changes—buying before additions, selling before deletions—has historically generated 2-4% annual returns with relatively low risk.</p>
+
+        <p><strong>Flow anticipation:</strong> Large ETF inflows/outflows create short-term dislocations that can be exploited through mean-reversion strategies.</p>
+
+        <p><strong>Non-index securities:</strong> Stocks outside major indices receive less passive ownership and may offer greater mispricing opportunities for fundamental investors.</p>
+
+        <h2>Conclusion</h2>
+        <p>The rise of passive investing has not eliminated opportunities for active management—it has changed where they exist. Understanding the mechanics of index funds, ETF arbitrage, and passive flows is increasingly essential for systematic strategy design. The irony is that passive growth may actually increase opportunities for sophisticated active strategies that can navigate the new market structure.</p>
+
+        <div class="article-author"><div class="author-avatar">SA</div><div class="author-info"><h4>Stelios Anastasiades</h4><p>Founder & Chief Investment Officer at Abacus Wealth Group.</p></div></div>
+    </article>
+
+    <footer><div class="footer-container"><div class="footer-top"><div class="footer-brand"><div class="footer-logo">Abacus</div><p>Quantitative investment strategies engineered for long-term wealth preservation.</p></div><div class="footer-column"><h4>Company</h4><ul><li><a href="../philosophy.html">Philosophy</a></li><li><a href="../research.html">Research</a></li><li><a href="../funds.html">Funds</a></li></ul></div><div class="footer-column"><h4>Resources</h4><ul><li><a href="https://algo.abacuswealthgroup.com/">Algorithm Performance</a></li><li><a href="https://games.abacuswealthgroup.com/">Abacus Games</a></li></ul></div><div class="footer-column"><h4>Contact</h4><ul><li><a href="mailto:info@abacuswealthgroup.com">info@abacuswealthgroup.com</a></li></ul></div></div><div class="footer-bottom"><p class="footer-legal">This research is for informational purposes only.</p><p class="footer-copyright">&copy; 2026 Abacus Wealth Group</p></div></div></footer>
+
+    <script>const navbar=document.getElementById('navbar');window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>50));document.getElementById('menuToggle').addEventListener('click',()=>document.getElementById('navLinks').classList.toggle('active'));</script>
+</body>
+</html>

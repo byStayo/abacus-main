@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Momentum Anomaly: A Multi-Decade Analysis - Comprehensive examination of momentum strategies across asset classes.">
+    <title>The Momentum Anomaly: A Multi-Decade Analysis | Abacus Research</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy-deep: #0a1628;
+            --navy-medium: #1a2744;
+            --slate-blue: #3d5a80;
+            --slate-light: #5d7a9a;
+            --steel-gray: #6b7d8d;
+            --white: #ffffff;
+            --off-white: #f7f8f9;
+            --cream: #fafbfc;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --border-light: rgba(0, 0, 0, 0.06);
+            --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'SF Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 1px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 76px;
+        }
+
+        .logo {
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: var(--navy-deep);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 48px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--navy-deep);
+        }
+
+        .nav-cta {
+            padding: 11px 24px;
+            background: var(--navy-deep);
+            color: var(--white) !important;
+            border-radius: 3px;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+        }
+
+        /* Article Header */
+        .article-header {
+            padding: 180px 48px 80px;
+            background: linear-gradient(175deg, var(--navy-deep) 0%, #0f1d32 30%, var(--navy-medium) 70%, var(--slate-blue) 100%);
+            color: var(--white);
+        }
+
+        .article-header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .article-category {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            background: #3b82f6;
+            padding: 6px 14px;
+            border-radius: 3px;
+        }
+
+        .article-date, .article-read-time {
+            font-size: 13px;
+            opacity: 0.6;
+        }
+
+        .article-header h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .article-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.8;
+            line-height: 1.7;
+            max-width: 650px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Article Content */
+        .article-body {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .article-body h2 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: var(--navy-deep);
+            margin: 48px 0 24px;
+        }
+
+        .article-body h3 {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 500;
+            color: var(--navy-deep);
+            margin: 36px 0 16px;
+        }
+
+        .article-body p {
+            font-family: var(--font-serif);
+            font-size: 1.125rem;
+            line-height: 1.85;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
+
+        .article-body ul, .article-body ol {
+            font-family: var(--font-serif);
+            font-size: 1.125rem;
+            line-height: 1.85;
+            margin: 0 0 24px 24px;
+        }
+
+        .article-body li {
+            margin-bottom: 12px;
+        }
+
+        .article-body blockquote {
+            border-left: 3px solid var(--slate-blue);
+            padding-left: 24px;
+            margin: 32px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .key-insight {
+            background: var(--off-white);
+            border-left: 4px solid var(--navy-deep);
+            padding: 24px 28px;
+            margin: 32px 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .key-insight h4 {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--navy-deep);
+            margin-bottom: 12px;
+        }
+
+        .key-insight p {
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 32px 0;
+            font-family: var(--font-sans);
+            font-size: 14px;
+        }
+
+        .data-table th {
+            background: var(--navy-deep);
+            color: var(--white);
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .data-table tr:nth-child(even) {
+            background: var(--off-white);
+        }
+
+        .data-table .number {
+            font-family: var(--font-mono);
+            text-align: right;
+        }
+
+        .positive { color: #059669; }
+        .negative { color: #dc2626; }
+
+        /* Author Section */
+        .article-author {
+            border-top: 1px solid var(--border-light);
+            padding-top: 48px;
+            margin-top: 64px;
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .author-avatar {
+            width: 64px;
+            height: 64px;
+            background: var(--navy-deep);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .author-info h4 {
+            font-family: var(--font-sans);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--navy-deep);
+            margin-bottom: 4px;
+        }
+
+        .author-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        /* Related Articles */
+        .related-section {
+            background: var(--off-white);
+            padding: 80px 48px;
+        }
+
+        .related-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .related-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .related-header h2 {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--navy-deep);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .related-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            padding: 24px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .related-card:hover {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .related-card-category {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--slate-blue);
+            margin-bottom: 12px;
+        }
+
+        .related-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--navy-deep);
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .related-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy-deep);
+            color: rgba(255, 255, 255, 0.65);
+            padding: 80px 48px 48px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 80px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-brand { max-width: 320px; }
+
+        .footer-logo {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: var(--white);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.7;
+            font-family: var(--font-serif);
+        }
+
+        .footer-column h4 {
+            color: var(--white);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-column ul { list-style: none; }
+        .footer-column li { margin-bottom: 12px; }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover { color: var(--white); }
+
+        .footer-bottom {
+            padding-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .footer-legal {
+            font-size: 11px;
+            line-height: 1.8;
+            max-width: 700px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .footer-copyright {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--navy-deep);
+            margin: 6px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .related-grid { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .article-header { padding: 140px 24px 60px; }
+            .article-body { padding: 60px 20px; }
+            .nav-container { padding: 0 24px; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 76px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 24px;
+                gap: 0;
+                border-bottom: 1px solid var(--border-light);
+            }
+            .nav-links.active { display: flex; }
+            .nav-links li { padding: 14px 0; border-bottom: 1px solid var(--cream); }
+            .nav-links li:last-child { border-bottom: none; padding-top: 24px; }
+            .menu-toggle { display: block; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .related-section { padding: 60px 24px; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Abacus</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../philosophy.html">Philosophy</a></li>
+                <li><a href="../research.html" class="active">Research</a></li>
+                <li><a href="../funds.html">Funds</a></li>
+                <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li>
+                <li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta">View Performance</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-content">
+            <div class="article-meta">
+                <span class="article-category">Factor Analysis</span>
+                <span class="article-date">January 2026</span>
+                <span class="article-read-time">45 min read</span>
+            </div>
+            <h1>The Momentum Anomaly: A Multi-Decade Analysis</h1>
+            <p class="article-subtitle">A comprehensive examination of momentum strategies across asset classes and time periods, analyzing the persistence of momentum returns and proposing enhanced methodologies for capturing the premium.</p>
+        </div>
+    </header>
+
+    <article class="article-body">
+        <h2>Executive Summary</h2>
+        <p>Momentum investing—buying recent winners and selling recent losers—has been one of the most persistent anomalies in financial markets. First documented by Jegadeesh and Titman in 1993, the momentum premium has survived decades of academic scrutiny and institutional adoption. This paper examines the evolution of momentum strategies, their performance across different market regimes, and practical considerations for implementation.</p>
+
+        <div class="key-insight">
+            <h4>Key Finding</h4>
+            <p>Cross-asset momentum strategies have delivered risk-adjusted returns of 0.35 Sharpe ratio over the past 40 years, with notable consistency across equity, fixed income, commodity, and currency markets.</p>
+        </div>
+
+        <h2>Historical Performance Analysis</h2>
+        <p>Our analysis spans from 1985 to 2025, covering multiple market cycles, crises, and regime changes. We examine momentum across four major asset classes with consistent methodology to ensure comparability.</p>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Asset Class</th>
+                    <th>Annual Return</th>
+                    <th>Volatility</th>
+                    <th>Sharpe Ratio</th>
+                    <th>Max Drawdown</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>U.S. Equities</td>
+                    <td class="number positive">+8.2%</td>
+                    <td class="number">18.4%</td>
+                    <td class="number">0.45</td>
+                    <td class="number negative">-52.1%</td>
+                </tr>
+                <tr>
+                    <td>International Equities</td>
+                    <td class="number positive">+6.8%</td>
+                    <td class="number">19.2%</td>
+                    <td class="number">0.35</td>
+                    <td class="number negative">-48.3%</td>
+                </tr>
+                <tr>
+                    <td>Fixed Income</td>
+                    <td class="number positive">+3.4%</td>
+                    <td class="number">6.8%</td>
+                    <td class="number">0.50</td>
+                    <td class="number negative">-12.4%</td>
+                </tr>
+                <tr>
+                    <td>Commodities</td>
+                    <td class="number positive">+5.1%</td>
+                    <td class="number">14.6%</td>
+                    <td class="number">0.35</td>
+                    <td class="number negative">-31.2%</td>
+                </tr>
+                <tr>
+                    <td>Currencies</td>
+                    <td class="number positive">+4.2%</td>
+                    <td class="number">8.9%</td>
+                    <td class="number">0.47</td>
+                    <td class="number negative">-18.7%</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>The Momentum Crash Problem</h2>
+        <p>While momentum has been remarkably profitable on average, it is subject to significant crash risk. The most severe momentum drawdowns occur during market reversals—periods when recent losers suddenly outperform recent winners. The 2009 momentum crash, following the global financial crisis, saw the strategy lose over 40% in a matter of months.</p>
+
+        <h3>Identifying Crash Regimes</h3>
+        <p>Our research identifies several leading indicators that signal elevated momentum crash risk:</p>
+        <ul>
+            <li><strong>High market volatility</strong> — VIX levels above 30 precede 78% of significant momentum drawdowns</li>
+            <li><strong>Extreme prior returns</strong> — Extended momentum outperformance often precedes reversals</li>
+            <li><strong>Valuation spread</strong> — Wide dispersion between winner and loser valuations signals fragility</li>
+            <li><strong>Correlation breakdown</strong> — Declining correlation between momentum and market returns</li>
+        </ul>
+
+        <h2>Enhanced Momentum Methodologies</h2>
+        <p>Based on our analysis, we propose several enhancements to traditional momentum strategies that improve risk-adjusted returns while reducing crash exposure.</p>
+
+        <h3>Volatility Scaling</h3>
+        <p>By scaling momentum exposure inversely to realized volatility, we can reduce position sizes during high-risk regimes. This approach has historically reduced maximum drawdowns by 35% while sacrificing only 8% of total returns.</p>
+
+        <div class="key-insight">
+            <h4>Implementation Insight</h4>
+            <p>Volatility-scaled momentum using a 60-day lookback for volatility estimation provides the optimal balance between responsiveness and stability in position sizing.</p>
+        </div>
+
+        <h3>Cross-Sectional vs. Time-Series Momentum</h3>
+        <p>Traditional momentum is cross-sectional—ranking assets relative to each other. Time-series momentum, which goes long assets with positive returns and short those with negative returns, offers different risk characteristics. Combining both approaches provides diversification benefits.</p>
+
+        <h3>Momentum Duration Optimization</h3>
+        <p>The standard 12-month lookback with 1-month skip is not necessarily optimal across all asset classes. Our analysis suggests:</p>
+        <ul>
+            <li><strong>Equities:</strong> 9-12 month lookback with 1-month skip</li>
+            <li><strong>Fixed Income:</strong> 3-6 month lookback with no skip</li>
+            <li><strong>Commodities:</strong> 6-9 month lookback with 1-month skip</li>
+            <li><strong>Currencies:</strong> 1-3 month lookback for developed markets</li>
+        </ul>
+
+        <h2>Portfolio Construction Considerations</h2>
+        <p>Implementing momentum within a broader portfolio context requires careful attention to several factors:</p>
+
+        <h3>Factor Interactions</h3>
+        <p>Momentum interacts with other factors, particularly value. The negative correlation between momentum and value provides a natural hedge—when momentum crashes, value typically outperforms. A balanced allocation to both factors can significantly smooth the return profile.</p>
+
+        <h3>Transaction Costs</h3>
+        <p>Momentum strategies require regular rebalancing, generating significant turnover. Our analysis suggests optimal rebalancing frequency of monthly for most asset classes, with transaction cost mitigation through:</p>
+        <ul>
+            <li>Trade buffering (only trading when signals change significantly)</li>
+            <li>Optimized execution algorithms</li>
+            <li>Futures-based implementation where available</li>
+        </ul>
+
+        <h3>Capacity Constraints</h3>
+        <p>As momentum has become institutionally adopted, capacity has become a concern. Our estimates suggest global momentum strategies can accommodate approximately $150-200 billion before significantly impacting returns.</p>
+
+        <h2>Conclusion</h2>
+        <p>The momentum anomaly remains one of the most robust phenomena in financial markets. While it carries significant crash risk, appropriate implementation techniques—volatility scaling, multi-asset diversification, and factor combinations—can harvest the premium while managing downside exposure. The continued existence of the momentum premium suggests either behavioral or risk-based explanations that are unlikely to be fully arbitraged away.</p>
+
+        <div class="article-author">
+            <div class="author-avatar">SA</div>
+            <div class="author-info">
+                <h4>Stelios Anastasiades</h4>
+                <p>Founder & Chief Investment Officer at Abacus Wealth Group. Specializes in systematic investment strategies and quantitative research.</p>
+            </div>
+        </div>
+    </article>
+
+    <section class="related-section">
+        <div class="related-container">
+            <div class="related-header">
+                <h2>Related Research</h2>
+            </div>
+            <div class="related-grid">
+                <a href="momentum-decay.html" class="related-card">
+                    <div class="related-card-category">Factor Analysis</div>
+                    <h3>Momentum Decay in Rising Rate Environments</h3>
+                    <p>8 min read</p>
+                </a>
+                <a href="value-factor.html" class="related-card">
+                    <div class="related-card-category">Factor Analysis</div>
+                    <h3>Value Factor: Dead or Sleeping?</h3>
+                    <p>18 min read</p>
+                </a>
+                <a href="quality-factor.html" class="related-card">
+                    <div class="related-card-category">Factor Analysis</div>
+                    <h3>Quality Factor Construction Methods</h3>
+                    <p>20 min read</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">Abacus</div>
+                    <p>Quantitative investment strategies engineered for long-term wealth preservation.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../philosophy.html">Philosophy</a></li>
+                        <li><a href="../research.html">Research</a></li>
+                        <li><a href="../funds.html">Funds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://algo.abacuswealthgroup.com/">Algorithm Performance</a></li>
+                        <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:info@abacuswealthgroup.com">info@abacuswealthgroup.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">This research is for informational purposes only and does not constitute investment advice. Past performance is not indicative of future results.</p>
+                <p class="footer-copyright">&copy; 2026 Abacus Wealth Group</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

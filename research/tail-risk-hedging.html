@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tail Risk Hedging with Systematic Strategies - Cost-effective approaches to portfolio insurance.">
+    <title>Tail Risk Hedging with Systematic Strategies | Abacus Research</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --navy-deep: #0a1628; --navy-medium: #1a2744; --slate-blue: #3d5a80;
+            --steel-gray: #6b7d8d; --white: #ffffff; --off-white: #f7f8f9;
+            --cream: #fafbfc; --text-primary: #1a1a2e; --text-secondary: #4a5568;
+            --text-muted: #718096; --border-light: rgba(0, 0, 0, 0.06);
+            --font-serif: 'Newsreader', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'SF Mono', monospace;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-sans); line-height: 1.6; color: var(--text-primary); background: var(--white); -webkit-font-smoothing: antialiased; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light); }
+        nav.scrolled { box-shadow: 0 1px 24px rgba(0, 0, 0, 0.06); }
+        .nav-container { max-width: 1440px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: center; height: 76px; }
+        .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.2em; color: var(--navy-deep); text-decoration: none; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 48px; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { color: var(--navy-deep); }
+        .nav-cta { padding: 11px 24px; background: var(--navy-deep); color: var(--white) !important; border-radius: 3px; font-size: 12px; }
+        .article-header { padding: 180px 48px 80px; background: linear-gradient(175deg, var(--navy-deep) 0%, #0f1d32 30%, var(--navy-medium) 70%, var(--slate-blue) 100%); color: var(--white); }
+        .article-header-content { max-width: 800px; margin: 0 auto; animation: fadeInUp 1s ease 0.2s both; }
+        .article-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+        .article-category { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; background: #ef4444; padding: 6px 14px; border-radius: 3px; }
+        .article-date, .article-read-time { font-size: 13px; opacity: 0.6; }
+        .article-header h1 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; font-style: italic; line-height: 1.2; margin-bottom: 24px; }
+        .article-subtitle { font-size: 1.25rem; opacity: 0.8; line-height: 1.7; max-width: 650px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .article-body { max-width: 720px; margin: 0 auto; padding: 80px 24px; }
+        .article-body h2 { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 500; color: var(--navy-deep); margin: 48px 0 24px; }
+        .article-body h3 { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; color: var(--navy-deep); margin: 36px 0 16px; }
+        .article-body p { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.85; margin-bottom: 24px; }
+        .article-body ul, .article-body ol { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.85; margin: 0 0 24px 24px; }
+        .article-body li { margin-bottom: 12px; }
+        .key-insight { background: var(--off-white); border-left: 4px solid var(--navy-deep); padding: 24px 28px; margin: 32px 0; border-radius: 0 4px 4px 0; }
+        .key-insight h4 { font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-deep); margin-bottom: 12px; }
+        .key-insight p { font-size: 1rem; margin-bottom: 0; }
+        .article-author { border-top: 1px solid var(--border-light); padding-top: 48px; margin-top: 64px; display: flex; gap: 24px; }
+        .author-avatar { width: 64px; height: 64px; background: var(--navy-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 600; font-size: 20px; flex-shrink: 0; }
+        .author-info h4 { font-size: 16px; font-weight: 600; color: var(--navy-deep); margin-bottom: 4px; }
+        .author-info p { font-size: 14px; color: var(--text-secondary); margin-bottom: 0; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--slate-blue); text-decoration: none; font-size: 14px; font-weight: 500; margin-bottom: 48px; }
+        .back-link:hover { color: var(--navy-deep); }
+        footer { background: var(--navy-deep); color: rgba(255, 255, 255, 0.65); padding: 80px 48px 48px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 80px; padding-bottom: 60px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .footer-brand { max-width: 320px; }
+        .footer-logo { font-size: 14px; font-weight: 600; letter-spacing: 0.2em; color: var(--white); margin-bottom: 20px; text-transform: uppercase; }
+        .footer-brand p { font-size: 14px; line-height: 1.7; font-family: var(--font-serif); }
+        .footer-column h4 { color: var(--white); font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+        .footer-column ul { list-style: none; }
+        .footer-column li { margin-bottom: 12px; }
+        .footer-column a { color: rgba(255, 255, 255, 0.5); text-decoration: none; font-size: 14px; }
+        .footer-column a:hover { color: var(--white); }
+        .footer-bottom { padding-top: 40px; display: flex; justify-content: space-between; gap: 40px; }
+        .footer-legal { font-size: 11px; line-height: 1.8; max-width: 700px; color: rgba(255, 255, 255, 0.35); }
+        .footer-copyright { font-size: 11px; color: rgba(255, 255, 255, 0.35); }
+        .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+        .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--navy-deep); margin: 6px 0; }
+        @media (max-width: 768px) {
+            .article-header { padding: 140px 24px 60px; }
+            .article-body { padding: 60px 20px; }
+            .nav-container { padding: 0 24px; }
+            .nav-links { display: none; position: absolute; top: 76px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 24px; gap: 0; border-bottom: 1px solid var(--border-light); }
+            .nav-links.active { display: flex; }
+            .nav-links li { padding: 14px 0; border-bottom: 1px solid var(--cream); }
+            .nav-links li:last-child { border-bottom: none; padding-top: 24px; }
+            .menu-toggle { display: block; }
+            .footer-top { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Abacus</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../philosophy.html">Philosophy</a></li>
+                <li><a href="../research.html" class="active">Research</a></li>
+                <li><a href="../funds.html">Funds</a></li>
+                <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li>
+                <li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta">View Performance</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-content">
+            <div class="article-meta">
+                <span class="article-category">Risk Management</span>
+                <span class="article-date">December 2025</span>
+                <span class="article-read-time">12 min read</span>
+            </div>
+            <h1>Tail Risk Hedging with Systematic Strategies</h1>
+            <p class="article-subtitle">Cost-effective approaches to portfolio insurance using options and dynamic allocation without sacrificing long-term returns.</p>
+        </div>
+    </header>
+
+    <article class="article-body">
+        <a href="../research.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+            Back to Research
+        </a>
+
+        <h2>The Tail Risk Problem</h2>
+        <p>Traditional portfolio construction assumes returns follow a normal distribution. In reality, financial markets exhibit fat tails—extreme events occur far more frequently than Gaussian models predict. The 2008 financial crisis, the 2020 COVID crash, and numerous other market dislocations demonstrate that tail events are not statistical anomalies but recurring features of markets.</p>
+
+        <p>The challenge is protecting against these events without destroying long-term returns through excessive hedging costs.</p>
+
+        <div class="key-insight">
+            <h4>The Cost Problem</h4>
+            <p>Continuously buying put options for portfolio protection typically costs 2-4% annually, which compounds to a devastating drag on long-term wealth. A $1M portfolio with 3% annual hedging cost grows to $1.81M over 20 years versus $2.65M without the cost—a 46% difference.</p>
+        </div>
+
+        <h2>Systematic Hedging Approaches</h2>
+        <p>We evaluate three systematic approaches to tail risk management that aim to provide meaningful downside protection while minimizing cost drag.</p>
+
+        <h3>1. Volatility-Responsive Put Buying</h3>
+        <p>Rather than constant hedging, this approach scales hedge ratios inversely with implied volatility. When VIX is low (protection is cheap), we buy more protection. When VIX spikes (protection is expensive), we reduce purchases or let positions roll off.</p>
+
+        <ul>
+            <li>Historical cost: 0.8-1.2% annually vs. 2.5-3.5% for constant hedging</li>
+            <li>Protection capture: 65-75% of downside protection during major events</li>
+            <li>Key risk: May be underhedged if crisis arrives from low volatility regime</li>
+        </ul>
+
+        <h3>2. Trend-Following Overlay</h3>
+        <p>Time-series momentum strategies naturally reduce equity exposure during sustained drawdowns. By the time a crisis becomes severe, the trend signal has typically reduced equity exposure by 30-50%, providing implicit tail protection.</p>
+
+        <ul>
+            <li>Historical cost: Negative (trend strategies have positive expected returns)</li>
+            <li>Protection capture: 40-60% of downside protection, but delayed response</li>
+            <li>Key risk: Whipsaw in choppy markets; protection arrives late in fast crashes</li>
+        </ul>
+
+        <h3>3. Defensive Sector Rotation</h3>
+        <p>Systematically rotating into defensive sectors (utilities, consumer staples, healthcare) when risk indicators elevate provides partial protection with minimal cost.</p>
+
+        <ul>
+            <li>Historical cost: Near zero (sector selection, not hedging)</li>
+            <li>Protection capture: 20-35% of drawdown reduction</li>
+            <li>Key risk: Defensive sectors can also decline significantly in severe crises</li>
+        </ul>
+
+        <h2>Our Integrated Approach</h2>
+        <p>We combine elements of all three approaches in a layered defense system:</p>
+
+        <ol>
+            <li><strong>Base Layer:</strong> Trend-following overlay providing 20% of protection budget</li>
+            <li><strong>Core Layer:</strong> Volatility-responsive puts providing 50% of protection budget</li>
+            <li><strong>Supplement Layer:</strong> Defensive rotation providing 30% of implicit protection</li>
+        </ol>
+
+        <p>This integrated approach has historically provided 70-80% of crisis protection at 40% of the cost of naive put buying, resulting in net hedging costs of approximately 1.0-1.4% annually.</p>
+
+        <h2>Implementation Considerations</h2>
+        <p>Effective tail hedging requires attention to several practical details:</p>
+
+        <ul>
+            <li><strong>Strike selection:</strong> 10-15% out-of-the-money puts provide the best cost/protection tradeoff</li>
+            <li><strong>Tenor selection:</strong> 3-6 month puts balance time decay against roll costs</li>
+            <li><strong>Rebalancing frequency:</strong> Monthly rebalancing of trend overlay, weekly for options</li>
+            <li><strong>Correlation monitoring:</strong> Cross-asset correlations spike during crises; diversification benefits decrease precisely when needed most</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>Tail risk cannot be eliminated, but it can be managed systematically at reasonable cost. The key insight is that episodic, volatility-aware hedging combined with trend-following dynamics provides a more efficient frontier of protection than constant hedging programs. Investors should expect to pay 1.0-1.5% annually for meaningful tail protection—a cost justified by the preservation of long-term compounding during market dislocations.</p>
+
+        <div class="article-author">
+            <div class="author-avatar">SA</div>
+            <div class="author-info">
+                <h4>Stelios Anastasiades</h4>
+                <p>Founder & Chief Investment Officer at Abacus Wealth Group.</p>
+            </div>
+        </div>
+    </article>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">Abacus</div>
+                    <p>Quantitative investment strategies engineered for long-term wealth preservation.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="../philosophy.html">Philosophy</a></li>
+                        <li><a href="../research.html">Research</a></li>
+                        <li><a href="../funds.html">Funds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://algo.abacuswealthgroup.com/">Algorithm Performance</a></li>
+                        <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:info@abacuswealthgroup.com">info@abacuswealthgroup.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">This research is for informational purposes only and does not constitute investment advice.</p>
+                <p class="footer-copyright">&copy; 2026 Abacus Wealth Group</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        menuToggle.addEventListener('click', () => navLinks.classList.toggle('active'));
+    </script>
+</body>
+</html>

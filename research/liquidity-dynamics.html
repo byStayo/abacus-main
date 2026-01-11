@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Liquidity Dynamics in Modern Markets - Understanding market microstructure changes and trading costs.">
+    <title>Liquidity Dynamics in Modern Markets | Abacus Research</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --navy-deep: #0a1628; --navy-medium: #1a2744; --slate-blue: #3d5a80; --steel-gray: #6b7d8d; --white: #ffffff; --off-white: #f7f8f9; --cream: #fafbfc; --text-primary: #1a1a2e; --text-secondary: #4a5568; --text-muted: #718096; --border-light: rgba(0, 0, 0, 0.06); --font-serif: 'Newsreader', Georgia, serif; --font-sans: 'Inter', -apple-system, sans-serif; --font-mono: 'SF Mono', monospace; }
+        html { scroll-behavior: smooth; }
+        body { font-family: var(--font-sans); line-height: 1.6; color: var(--text-primary); background: var(--white); -webkit-font-smoothing: antialiased; }
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-light); }
+        nav.scrolled { box-shadow: 0 1px 24px rgba(0, 0, 0, 0.06); }
+        .nav-container { max-width: 1440px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: center; height: 76px; }
+        .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.2em; color: var(--navy-deep); text-decoration: none; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 48px; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 13px; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { color: var(--navy-deep); }
+        .nav-cta { padding: 11px 24px; background: var(--navy-deep); color: var(--white) !important; border-radius: 3px; font-size: 12px; }
+        .article-header { padding: 180px 48px 80px; background: linear-gradient(175deg, var(--navy-deep) 0%, #0f1d32 30%, var(--navy-medium) 70%, var(--slate-blue) 100%); color: var(--white); }
+        .article-header-content { max-width: 800px; margin: 0 auto; animation: fadeInUp 1s ease 0.2s both; }
+        .article-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; flex-wrap: wrap; }
+        .article-category { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; background: #f59e0b; padding: 6px 14px; border-radius: 3px; }
+        .article-date, .article-read-time { font-size: 13px; opacity: 0.6; }
+        .article-header h1 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; font-style: italic; line-height: 1.2; margin-bottom: 24px; }
+        .article-subtitle { font-size: 1.25rem; opacity: 0.8; line-height: 1.7; max-width: 650px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .article-body { max-width: 720px; margin: 0 auto; padding: 80px 24px; }
+        .article-body h2 { font-family: var(--font-serif); font-size: 1.75rem; font-weight: 500; color: var(--navy-deep); margin: 48px 0 24px; }
+        .article-body h3 { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 500; color: var(--navy-deep); margin: 36px 0 16px; }
+        .article-body p { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.85; margin-bottom: 24px; }
+        .article-body ul { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.85; margin: 0 0 24px 24px; }
+        .article-body li { margin-bottom: 12px; }
+        .key-insight { background: var(--off-white); border-left: 4px solid var(--navy-deep); padding: 24px 28px; margin: 32px 0; border-radius: 0 4px 4px 0; }
+        .key-insight h4 { font-family: var(--font-sans); font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-deep); margin-bottom: 12px; }
+        .key-insight p { font-size: 1rem; margin-bottom: 0; }
+        .article-author { border-top: 1px solid var(--border-light); padding-top: 48px; margin-top: 64px; display: flex; gap: 24px; }
+        .author-avatar { width: 64px; height: 64px; background: var(--navy-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--white); font-weight: 600; font-size: 20px; flex-shrink: 0; }
+        .author-info h4 { font-size: 16px; font-weight: 600; color: var(--navy-deep); margin-bottom: 4px; }
+        .author-info p { font-size: 14px; color: var(--text-secondary); margin-bottom: 0; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--slate-blue); text-decoration: none; font-size: 14px; font-weight: 500; margin-bottom: 48px; }
+        .back-link:hover { color: var(--navy-deep); }
+        footer { background: var(--navy-deep); color: rgba(255, 255, 255, 0.65); padding: 80px 48px 48px; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 80px; padding-bottom: 60px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+        .footer-brand { max-width: 320px; }
+        .footer-logo { font-size: 14px; font-weight: 600; letter-spacing: 0.2em; color: var(--white); margin-bottom: 20px; text-transform: uppercase; }
+        .footer-brand p { font-size: 14px; line-height: 1.7; font-family: var(--font-serif); }
+        .footer-column h4 { color: var(--white); font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 20px; }
+        .footer-column ul { list-style: none; } .footer-column li { margin-bottom: 12px; }
+        .footer-column a { color: rgba(255, 255, 255, 0.5); text-decoration: none; font-size: 14px; }
+        .footer-column a:hover { color: var(--white); }
+        .footer-bottom { padding-top: 40px; display: flex; justify-content: space-between; gap: 40px; }
+        .footer-legal { font-size: 11px; line-height: 1.8; max-width: 700px; color: rgba(255, 255, 255, 0.35); }
+        .footer-copyright { font-size: 11px; color: rgba(255, 255, 255, 0.35); }
+        .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+        .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--navy-deep); margin: 6px 0; }
+        @media (max-width: 768px) { .article-header { padding: 140px 24px 60px; } .article-body { padding: 60px 20px; } .nav-container { padding: 0 24px; } .nav-links { display: none; position: absolute; top: 76px; left: 0; right: 0; background: var(--white); flex-direction: column; padding: 24px; gap: 0; border-bottom: 1px solid var(--border-light); } .nav-links.active { display: flex; } .nav-links li { padding: 14px 0; border-bottom: 1px solid var(--cream); } .nav-links li:last-child { border-bottom: none; padding-top: 24px; } .menu-toggle { display: block; } .footer-top { grid-template-columns: 1fr; } .footer-bottom { flex-direction: column; text-align: center; } }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">Abacus</a>
+            <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../philosophy.html">Philosophy</a></li>
+                <li><a href="../research.html" class="active">Research</a></li>
+                <li><a href="../funds.html">Funds</a></li>
+                <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li>
+                <li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta">View Performance</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="article-header">
+        <div class="article-header-content">
+            <div class="article-meta">
+                <span class="article-category">Market Structure</span>
+                <span class="article-date">October 2025</span>
+                <span class="article-read-time">15 min read</span>
+            </div>
+            <h1>Liquidity Dynamics in Modern Markets</h1>
+            <p class="article-subtitle">Understanding market microstructure changes and their impact on execution quality and trading costs.</p>
+        </div>
+    </header>
+
+    <article class="article-body">
+        <a href="../research.html" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+            Back to Research
+        </a>
+
+        <h2>The Liquidity Landscape</h2>
+        <p>Market liquidity—the ability to transact large volumes without significantly impacting prices—has undergone profound changes over the past two decades. The shift from floor-based trading to electronic markets, the rise of high-frequency trading, and regulatory changes have reshaped how liquidity is provided and consumed.</p>
+
+        <p>Understanding these dynamics is essential for any systematic strategy, as execution quality can mean the difference between theoretical backtested returns and actual realized performance.</p>
+
+        <div class="key-insight">
+            <h4>The Hidden Cost</h4>
+            <p>For a $100M equity portfolio turning over 200% annually, a 10 basis point improvement in execution quality translates to $200,000 in annual savings—often the difference between an attractive and mediocre strategy.</p>
+        </div>
+
+        <h2>Modern Market Microstructure</h2>
+        <p>Several structural changes have transformed liquidity provision:</p>
+
+        <h3>The Decline of Dealer Inventory</h3>
+        <p>Post-2008 regulations (Volcker Rule, Basel III) have reduced banks' willingness to hold inventory. Market-making has shifted from principal trading desks to agency electronic market makers who provide liquidity but don't warehouse risk. This creates "fair-weather liquidity"—abundant in calm markets, scarce during stress.</p>
+
+        <h3>High-Frequency Trading</h3>
+        <p>HFT firms now provide 50-60% of equity market liquidity. While they've tightened spreads and improved average execution, their tendency to withdraw during volatility spikes creates liquidity gaps precisely when investors need to trade.</p>
+
+        <h3>Dark Pool Fragmentation</h3>
+        <p>Institutional trading has increasingly moved to dark pools and alternative trading systems. While these venues reduce market impact for large orders, they've fragmented the price discovery process and made it harder to assess true market depth.</p>
+
+        <h2>Measuring Liquidity</h2>
+        <p>We track several metrics to assess liquidity conditions:</p>
+
+        <ul>
+            <li><strong>Bid-ask spreads:</strong> Direct transaction cost, typically 1-5 bps for large-cap stocks</li>
+            <li><strong>Market depth:</strong> Volume available at best bid/offer, indicating capacity</li>
+            <li><strong>Price impact:</strong> How much prices move in response to order flow</li>
+            <li><strong>Reversion rate:</strong> How quickly prices recover after large trades</li>
+            <li><strong>Intraday volatility:</strong> Higher volatility often signals liquidity stress</li>
+        </ul>
+
+        <h2>Execution Strategy Implications</h2>
+        <p>Given modern liquidity dynamics, we employ several execution techniques:</p>
+
+        <h3>Time-Weighted Execution</h3>
+        <p>For rebalancing trades without strong alpha signals, we spread execution across the trading day to minimize impact and capture the natural liquidity cycle.</p>
+
+        <h3>Adaptive Algorithms</h3>
+        <p>Execution algorithms that adjust to real-time liquidity conditions—speeding up when liquidity is abundant, slowing when it's scarce—consistently outperform static schedules.</p>
+
+        <h3>Venue Optimization</h3>
+        <p>Smart order routing across exchanges, dark pools, and crossing networks based on current fill rates and price improvement statistics reduces total transaction costs by 15-25% versus naive routing.</p>
+
+        <h2>Conclusion</h2>
+        <p>Liquidity is not a static characteristic but a dynamic variable that changes with market conditions, time of day, and macroeconomic environment. Systematic strategies must account for liquidity constraints in both design (capacity limits, turnover constraints) and execution (adaptive algorithms, timing optimization) to translate theoretical edge into realized returns.</p>
+
+        <div class="article-author">
+            <div class="author-avatar">SA</div>
+            <div class="author-info">
+                <h4>Stelios Anastasiades</h4>
+                <p>Founder & Chief Investment Officer at Abacus Wealth Group.</p>
+            </div>
+        </div>
+    </article>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">Abacus</div>
+                    <p>Quantitative investment strategies engineered for long-term wealth preservation.</p>
+                </div>
+                <div class="footer-column"><h4>Company</h4><ul><li><a href="../philosophy.html">Philosophy</a></li><li><a href="../research.html">Research</a></li><li><a href="../funds.html">Funds</a></li></ul></div>
+                <div class="footer-column"><h4>Resources</h4><ul><li><a href="https://algo.abacuswealthgroup.com/">Algorithm Performance</a></li><li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li></ul></div>
+                <div class="footer-column"><h4>Contact</h4><ul><li><a href="mailto:info@abacuswealthgroup.com">info@abacuswealthgroup.com</a></li></ul></div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-legal">This research is for informational purposes only and does not constitute investment advice.</p>
+                <p class="footer-copyright">&copy; 2026 Abacus Wealth Group</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 50));
+        document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('active'));
+    </script>
+</body>
+</html>

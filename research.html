@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Abacus Wealth Group Research - Quantitative research and insights from our investment team.">
+    <meta name="keywords" content="quantitative research, factor analysis, risk management, market structure, investment research">
+    <meta name="author" content="Abacus Wealth Group">
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://abacuswealthgroup.com/research.html">
+    <meta property="og:title" content="Research & Insights | Abacus Wealth Group">
+    <meta property="og:description" content="Deep analysis and thought leadership from our quantitative research team on factor investing, risk management, and market dynamics.">
+    <meta property="og:image" content="https://abacuswealthgroup.com/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
     <title>Research & Insights | Abacus Wealth Group</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <!-- Google Fonts - Institutional Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         /* ============ CSS RESET & VARIABLES ============ */
         *, *::before, *::after {
@@ -21,12 +34,20 @@
             --slate-light: #5d7a9a;
             --steel-gray: #6b7d8d;
             --white: #ffffff;
-            --off-white: #f8f9fa;
+            --off-white: #f7f8f9;
+            --cream: #fafbfc;
             --black: #0d1117;
-            --text-muted: #6c757d;
-            --accent-gold: #c9a227;
-            --green: #10b981;
-            --red: #ef4444;
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --accent-gold: #b8860b;
+            --green: #059669;
+            --red: #dc2626;
+            --border-light: rgba(0, 0, 0, 0.06);
+
+            --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'SF Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
         }
 
         html {
@@ -34,18 +55,25 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            font-family: var(--font-sans);
             line-height: 1.6;
-            color: var(--black);
+            color: var(--text-primary);
             background: var(--white);
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* ============ TYPOGRAPHY ============ */
-        h1, h2, h3, h4 {
-            font-weight: 600;
+        h1, h2, h3 {
+            font-family: var(--font-serif);
+            font-weight: 500;
             line-height: 1.2;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
+        }
+
+        h4, h5, h6 {
+            font-family: var(--font-sans);
+            font-weight: 600;
         }
 
         h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
@@ -59,45 +87,47 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
             transition: all 0.3s ease;
         }
 
         nav.scrolled {
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 1px 24px rgba(0, 0, 0, 0.06);
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1440px;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 48px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 72px;
+            height: 76px;
         }
 
         .logo {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: 0.15em;
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
             color: var(--navy-deep);
             text-decoration: none;
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 48px;
             list-style: none;
         }
 
         .nav-links a {
-            color: var(--steel-gray);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             letter-spacing: 0.02em;
             transition: color 0.2s;
@@ -109,22 +139,23 @@
         }
 
         .nav-cta {
-            padding: 10px 24px;
+            padding: 11px 24px;
             background: var(--navy-deep);
             color: var(--white) !important;
-            border-radius: 4px;
-            transition: background 0.2s, transform 0.2s !important;
+            border-radius: 3px;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            transition: all 0.2s !important;
         }
 
         .nav-cta:hover {
             background: var(--navy-medium);
-            transform: translateY(-1px);
         }
 
         /* ============ PAGE HERO ============ */
         .page-hero {
-            padding: 160px 40px 100px;
-            background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy-medium) 100%);
+            padding: 180px 48px 100px;
+            background: linear-gradient(175deg, var(--navy-deep) 0%, #0f1d32 30%, var(--navy-medium) 70%, var(--slate-blue) 100%);
             color: var(--white);
             text-align: center;
         }
@@ -132,29 +163,53 @@
         .page-hero-content {
             max-width: 800px;
             margin: 0 auto;
+            animation: fadeInUp 1s ease 0.2s both;
         }
 
         .page-hero .breadcrumb {
-            font-size: 12px;
-            letter-spacing: 0.2em;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            letter-spacing: 0.25em;
             text-transform: uppercase;
-            opacity: 0.6;
-            margin-bottom: 24px;
+            opacity: 0.5;
+            margin-bottom: 28px;
+            font-weight: 500;
         }
 
         .page-hero .breadcrumb a {
             color: inherit;
             text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .page-hero .breadcrumb a:hover {
+            opacity: 0.8;
         }
 
         .page-hero h1 {
-            margin-bottom: 24px;
+            margin-bottom: 28px;
+            font-weight: 400;
+            font-style: italic;
         }
 
         .page-hero .lead {
-            font-size: 1.25rem;
-            opacity: 0.85;
-            line-height: 1.7;
+            font-family: var(--font-sans);
+            font-size: 1.125rem;
+            opacity: 0.75;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* ============ FILTER BAR ============ */
@@ -214,49 +269,55 @@
 
         .research-card {
             background: var(--white);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .research-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .research-card:hover {
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
-            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+            transform: translateY(-6px);
+        }
+
+        .research-card.visible:hover {
+            transform: translateY(-6px);
         }
 
         .research-card-image {
-            height: 160px;
+            height: 180px;
             background: linear-gradient(135deg, var(--navy-medium), var(--slate-blue));
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
             overflow: hidden;
         }
 
-        .research-card-image::before {
+        .research-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .research-card:hover .research-card-image img {
+            transform: scale(1.05);
+        }
+
+        .research-card-image::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
-
-        .research-icon {
-            width: 64px;
-            height: 64px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            position: relative;
-            z-index: 1;
+            background: linear-gradient(to bottom, rgba(10,22,40,0.1) 0%, rgba(10,22,40,0.4) 100%);
+            pointer-events: none;
         }
 
         .research-card-content {
@@ -411,48 +472,36 @@
         }
 
         .featured-visual {
-            background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
             overflow: hidden;
         }
 
-        .featured-visual::before {
+        .featured-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .featured-visual::after {
             content: '';
             position: absolute;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .featured-chart-icon {
-            width: 120px;
-            height: 120px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            position: relative;
-            z-index: 1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10,22,40,0.3) 0%, rgba(61,90,128,0.2) 100%);
+            border-radius: 8px;
+            pointer-events: none;
         }
 
         /* ============ FOOTER ============ */
         footer {
             background: var(--navy-deep);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 80px 40px 40px;
+            color: rgba(255, 255, 255, 0.65);
+            padding: 100px 48px 48px;
         }
 
         .footer-container {
@@ -463,35 +512,38 @@
         .footer-top {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 60px;
-            padding-bottom: 60px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 80px;
+            padding-bottom: 80px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .footer-brand {
-            max-width: 300px;
+            max-width: 320px;
         }
 
         .footer-logo {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: 0.15em;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
             color: var(--white);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
         }
 
         .footer-brand p {
             font-size: 14px;
-            line-height: 1.7;
+            line-height: 1.8;
+            font-family: var(--font-serif);
         }
 
         .footer-column h4 {
             color: var(--white);
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .footer-column ul {
@@ -499,11 +551,11 @@
         }
 
         .footer-column li {
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .footer-column a {
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
             text-decoration: none;
             font-size: 14px;
             transition: color 0.2s;
@@ -514,23 +566,24 @@
         }
 
         .footer-bottom {
-            padding-top: 40px;
+            padding-top: 48px;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            gap: 40px;
+            gap: 48px;
         }
 
         .footer-legal {
             font-size: 11px;
-            line-height: 1.8;
-            max-width: 700px;
-            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.9;
+            max-width: 720px;
+            color: rgba(255, 255, 255, 0.35);
         }
 
         .footer-copyright {
-            font-size: 12px;
+            font-size: 11px;
             white-space: nowrap;
+            color: rgba(255, 255, 255, 0.35);
         }
 
         /* ============ MOBILE MENU ============ */
@@ -549,6 +602,57 @@
             background: var(--navy-deep);
             margin: 6px 0;
             transition: all 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            background: var(--navy-deep);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            background: var(--slate-blue);
+            transform: translateY(-4px);
+        }
+
+        .scroll-top svg {
+            width: 20px;
+            height: 20px;
         }
 
         /* ============ RESPONSIVE ============ */
@@ -574,7 +678,7 @@
 
         @media (max-width: 768px) {
             .page-hero {
-                padding: 120px 24px 60px;
+                padding: 140px 24px 80px;
             }
 
             .filter-bar {
@@ -583,7 +687,7 @@
 
             .research-section,
             .featured-section {
-                padding: 60px 24px;
+                padding: 80px 24px;
             }
 
             .nav-container {
@@ -593,14 +697,14 @@
             .nav-links {
                 display: none;
                 position: absolute;
-                top: 72px;
+                top: 76px;
                 left: 0;
                 right: 0;
                 background: var(--white);
                 flex-direction: column;
                 padding: 24px;
                 gap: 0;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+                border-bottom: 1px solid var(--border-light);
             }
 
             .nav-links.active {
@@ -608,13 +712,13 @@
             }
 
             .nav-links li {
-                padding: 12px 0;
-                border-bottom: 1px solid var(--off-white);
+                padding: 14px 0;
+                border-bottom: 1px solid var(--cream);
             }
 
             .nav-links li:last-child {
                 border-bottom: none;
-                padding-top: 20px;
+                padding-top: 24px;
             }
 
             .menu-toggle {
@@ -645,7 +749,7 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <a href="/" class="logo">ABACUS</a>
+            <a href="index.html" class="logo">Abacus</a>
             <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
@@ -655,7 +759,7 @@
                 <li><a href="philosophy.html">Philosophy</a></li>
                 <li><a href="research.html" class="active">Research</a></li>
                 <li><a href="funds.html">Funds</a></li>
-                <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Simulations</a></li>
+                <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li>
                 <li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta">View Performance</a></li>
             </ul>
         </div>
@@ -664,7 +768,7 @@
     <!-- Page Hero -->
     <section class="page-hero">
         <div class="page-hero-content">
-            <p class="breadcrumb"><a href="/">Home</a> / Research</p>
+            <p class="breadcrumb"><a href="index.html">Home</a> / Research</p>
             <h1>Research & Insights</h1>
             <p class="lead">Deep analysis and thought leadership from our quantitative research team. Explore our latest findings on factor investing, risk management, and market dynamics.</p>
         </div>
@@ -697,7 +801,7 @@
                         <span class="featured-meta-item">45 min read</span>
                         <span class="featured-meta-item">Factor Analysis</span>
                     </div>
-                    <a href="#" class="featured-btn">
+                    <a href="research/momentum-anomaly.html" class="featured-btn">
                         Read Full Paper
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -705,7 +809,7 @@
                     </a>
                 </div>
                 <div class="featured-visual">
-                    <div class="featured-chart-icon">📊</div>
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80" alt="Momentum analysis visualization" loading="lazy">
                 </div>
             </div>
         </div>
@@ -718,7 +822,7 @@
                 <!-- Factor Analysis -->
                 <div class="research-card" data-category="factor">
                     <div class="research-card-image">
-                        <div class="research-icon">📈</div>
+                        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&q=80" alt="Stock market data" loading="lazy">
                     </div>
                     <div class="research-card-content">
                         <div class="research-card-meta">
@@ -729,7 +833,7 @@
                         <p>An examination of how traditional momentum factors perform during Federal Reserve tightening cycles and implications for portfolio construction.</p>
                         <div class="research-card-footer">
                             <span class="read-time">8 min read</span>
-                            <a href="#" class="read-link">
+                            <a href="research/momentum-decay.html" class="read-link">
                                 Read More
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -742,7 +846,7 @@
                 <!-- Risk Management -->
                 <div class="research-card" data-category="risk">
                     <div class="research-card-image">
-                        <div class="research-icon">🛡️</div>
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80" alt="Risk analysis" loading="lazy">
                     </div>
                     <div class="research-card-content">
                         <div class="research-card-meta">
@@ -753,7 +857,7 @@
                         <p>Cost-effective approaches to portfolio insurance using options and dynamic allocation without sacrificing long-term returns.</p>
                         <div class="research-card-footer">
                             <span class="read-time">12 min read</span>
-                            <a href="#" class="read-link">
+                            <a href="research/tail-risk-hedging.html" class="read-link">
                                 Read More
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -766,7 +870,7 @@
                 <!-- Macro Signals -->
                 <div class="research-card" data-category="macro">
                     <div class="research-card-image">
-                        <div class="research-icon">🌐</div>
+                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=600&q=80" alt="Global markets" loading="lazy">
                     </div>
                     <div class="research-card-content">
                         <div class="research-card-meta">
@@ -777,7 +881,7 @@
                         <p>How correlation structures break down during market stress and implications for diversification strategies.</p>
                         <div class="research-card-footer">
                             <span class="read-time">10 min read</span>
-                            <a href="#" class="read-link">
+                            <a href="research/cross-asset-correlations.html" class="read-link">
                                 Read More
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -790,7 +894,7 @@
                 <!-- Market Structure -->
                 <div class="research-card" data-category="structure">
                     <div class="research-card-image">
-                        <div class="research-icon">⚡</div>
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="Data analytics" loading="lazy">
                     </div>
                     <div class="research-card-content">
                         <div class="research-card-meta">
@@ -801,7 +905,7 @@
                         <p>Understanding market microstructure changes and their impact on execution quality and trading costs.</p>
                         <div class="research-card-footer">
                             <span class="read-time">15 min read</span>
-                            <a href="#" class="read-link">
+                            <a href="research/liquidity-dynamics.html" class="read-link">
                                 Read More
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -814,7 +918,7 @@
                 <!-- Factor Analysis 2 -->
                 <div class="research-card" data-category="factor">
                     <div class="research-card-image">
-                        <div class="research-icon">📊</div>
+                        <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=600&q=80" alt="Financial charts" loading="lazy">
                     </div>
                     <div class="research-card-content">
                         <div class="research-card-meta">
@@ -825,7 +929,7 @@
                         <p>A deep dive into the underperformance of value strategies and whether traditional metrics still capture mispricing.</p>
                         <div class="research-card-footer">
                             <span class="read-time">18 min read</span>
-                            <a href="#" class="read-link">
+                            <a href="research/value-factor.html" class="read-link">
                                 Read More
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -838,7 +942,7 @@
                 <!-- Risk Management 2 -->
                 <div class="research-card" data-category="risk">
                     <div class="research-card-image">
-                        <div class="research-icon">📉</div>
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="Analytics dashboard" loading="lazy">
                     </div>
                     <div class="research-card-content">
                         <div class="research-card-meta">
@@ -849,7 +953,7 @@
                         <p>Practical aspects of running volatility-targeted strategies, including lag effects and transaction costs.</p>
                         <div class="research-card-footer">
                             <span class="read-time">14 min read</span>
-                            <a href="#" class="read-link">
+                            <a href="research/volatility-targeting.html" class="read-link">
                                 Read More
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -862,7 +966,7 @@
                 <!-- Macro Signals 2 -->
                 <div class="research-card" data-category="macro">
                     <div class="research-card-image">
-                        <div class="research-icon">🔮</div>
+                        <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?w=600&q=80" alt="Economic indicators" loading="lazy">
                     </div>
                     <div class="research-card-content">
                         <div class="research-card-meta">
@@ -873,7 +977,7 @@
                         <p>Analyzing the predictive power of yield curve indicators for stock market performance across different regimes.</p>
                         <div class="research-card-footer">
                             <span class="read-time">11 min read</span>
-                            <a href="#" class="read-link">
+                            <a href="research/yield-curve-signals.html" class="read-link">
                                 Read More
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -886,7 +990,7 @@
                 <!-- Market Structure 2 -->
                 <div class="research-card" data-category="structure">
                     <div class="research-card-image">
-                        <div class="research-icon">🔄</div>
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600&q=80" alt="Trading floor" loading="lazy">
                     </div>
                     <div class="research-card-content">
                         <div class="research-card-meta">
@@ -897,7 +1001,7 @@
                         <p>How the growth of passive investing affects price discovery and creates opportunities for active strategies.</p>
                         <div class="research-card-footer">
                             <span class="read-time">16 min read</span>
-                            <a href="#" class="read-link">
+                            <a href="research/etf-arbitrage.html" class="read-link">
                                 Read More
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -910,7 +1014,7 @@
                 <!-- Factor Analysis 3 -->
                 <div class="research-card" data-category="factor">
                     <div class="research-card-image">
-                        <div class="research-icon">⚙️</div>
+                        <img src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?w=600&q=80" alt="Quantitative analysis" loading="lazy">
                     </div>
                     <div class="research-card-content">
                         <div class="research-card-meta">
@@ -921,7 +1025,7 @@
                         <p>Comparing different approaches to building quality factor portfolios and their out-of-sample performance.</p>
                         <div class="research-card-footer">
                             <span class="read-time">20 min read</span>
-                            <a href="#" class="read-link">
+                            <a href="research/quality-factor.html" class="read-link">
                                 Read More
                                 <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M3 8h10M9 4l4 4-4 4"/>
@@ -934,12 +1038,19 @@
         </div>
     </section>
 
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
     <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-top">
                 <div class="footer-brand">
-                    <div class="footer-logo">ABACUS</div>
+                    <div class="footer-logo">Abacus</div>
                     <p>Quantitative investment strategies engineered for long-term wealth preservation. We combine rigorous data analysis with systematic execution.</p>
                 </div>
                 <div class="footer-column">
@@ -954,7 +1065,7 @@
                     <h4>Resources</h4>
                     <ul>
                         <li><a href="https://algo.abacuswealthgroup.com/">Algorithm Performance</a></li>
-                        <li><a href="https://games.abacuswealthgroup.com/">Interactive Simulations</a></li>
+                        <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -976,19 +1087,24 @@
     <script>
         // Navigation scroll effect
         const navbar = document.getElementById('navbar');
+        const scrollTop = document.getElementById('scrollTop');
+
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+            scrollTop.classList.toggle('visible', window.scrollY > 500);
         });
 
-        // Mobile menu toggle
+        // Scroll to top
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Mobile menu toggle with animation
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
         });
 
         // Filter functionality
@@ -1012,6 +1128,32 @@
                 });
             });
         });
+
+        // Scroll-triggered animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 80);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.research-card').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initScrollAnimations);
     </script>
 </body>
 </html>
