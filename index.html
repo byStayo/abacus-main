@@ -636,6 +636,120 @@
             transform: translateX(4px);
         }
 
+        /* ============ ANALYTICS TOOLS SECTION ============ */
+        .tools-section {
+            background: var(--navy-deep);
+            color: var(--white);
+        }
+
+        .tools-section .section-label {
+            color: var(--slate-light);
+        }
+
+        .tools-section .section-header h2 {
+            color: var(--white);
+        }
+
+        .tools-section .section-desc {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 32px;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(24px);
+            text-decoration: none;
+            color: var(--white);
+            display: block;
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .tool-card.visible:hover {
+            transform: translateY(-4px);
+        }
+
+        .tool-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--slate-blue) 0%, var(--navy-medium) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tool-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--white);
+        }
+
+        .tool-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+
+        .tool-card .tool-subtitle {
+            font-size: 11px;
+            color: var(--slate-light);
+            margin-bottom: 16px;
+            letter-spacing: 0.04em;
+        }
+
+        .tool-card p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 20px;
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--white);
+            opacity: 0.8;
+            transition: all 0.2s;
+        }
+
+        .tool-link:hover {
+            opacity: 1;
+        }
+
+        .tool-link svg {
+            transition: transform 0.2s;
+        }
+
+        .tool-card:hover .tool-link svg {
+            transform: translateX(4px);
+        }
+
         /* ============ RESEARCH FEED SECTION ============ */
         .research-feed {
             background: var(--cream);
@@ -931,7 +1045,8 @@
         /* ============ RESPONSIVE ============ */
         @media (max-width: 1024px) {
             .charts-grid,
-            .fund-cards {
+            .fund-cards,
+            .tools-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
@@ -996,7 +1111,8 @@
 
             .charts-grid,
             .fund-cards,
-            .research-grid {
+            .research-grid,
+            .tools-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1065,6 +1181,7 @@
                 <li><a href="philosophy.html">Philosophy</a></li>
                 <li><a href="research.html">Research</a></li>
                 <li><a href="funds.html">Funds</a></li>
+                <li><a href="#tools" onclick="document.querySelector('.tools-section').scrollIntoView({behavior: 'smooth'}); return false;">Tools</a></li>
                 <li><a href="https://games.abacuswealthgroup.com/" target="_blank">Abacus Games</a></li>
                 <li><a href="https://algo.abacuswealthgroup.com/" class="nav-cta" target="_blank">View Performance</a></li>
             </ul>
@@ -1228,6 +1345,89 @@
                         </svg>
                     </a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Tools Section -->
+    <section class="tools-section">
+        <div class="section-container">
+            <div class="section-header">
+                <p class="section-label">Analytics Platform</p>
+                <h2>Quantitative Tools</h2>
+                <p class="section-desc">Professional-grade analytics tools for data-driven investment decisions.</p>
+            </div>
+            <div class="tools-grid">
+                <a href="https://abacus-fed.netlify.app" class="tool-card" target="_blank">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18"/>
+                            <path d="M18 17V9"/>
+                            <path d="M13 17V5"/>
+                            <path d="M8 17v-3"/>
+                        </svg>
+                    </div>
+                    <h3>FedPredict</h3>
+                    <div class="tool-subtitle">by Abacus Wealth Group</div>
+                    <p>Federal Reserve economic predictions using neural networks. CPI, employment, and interest rate forecasts.</p>
+                    <span class="tool-link">
+                        Launch Tool
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8h10M9 4l4 4-4 4"/>
+                        </svg>
+                    </span>
+                </a>
+                <a href="https://abacus-radar.netlify.app" class="tool-card" target="_blank">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 2a15 15 0 0 0 0 20"/>
+                            <path d="M12 2a15 15 0 0 1 0 20"/>
+                            <path d="M2 12h20"/>
+                        </svg>
+                    </div>
+                    <h3>Money Flow Radar</h3>
+                    <div class="tool-subtitle">by Abacus Wealth Group</div>
+                    <p>Real-time capital flow analytics. Track global flows, predict turning points, and monitor liquidity indices.</p>
+                    <span class="tool-link">
+                        Launch Tool
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8h10M9 4l4 4-4 4"/>
+                        </svg>
+                    </span>
+                </a>
+                <a href="https://abacus-buffett.netlify.app" class="tool-card" target="_blank">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h3>Buffett Meter</h3>
+                    <div class="tool-subtitle">by Abacus Wealth Group</div>
+                    <p>Value investing analysis powered by Warren Buffett's wisdom. Stock analysis and economic indicators.</p>
+                    <span class="tool-link">
+                        Launch Tool
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8h10M9 4l4 4-4 4"/>
+                        </svg>
+                    </span>
+                </a>
+                <a href="https://abacus-flow.netlify.app" class="tool-card" target="_blank">
+                    <div class="tool-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                        </svg>
+                    </div>
+                    <h3>FLOW Capital</h3>
+                    <div class="tool-subtitle">by Abacus Wealth Group</div>
+                    <p>Comprehensive capital flow intelligence. Sector rotation, entity tracking, and predictive analytics.</p>
+                    <span class="tool-link">
+                        Launch Tool
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 8h10M9 4l4 4-4 4"/>
+                        </svg>
+                    </span>
+                </a>
             </div>
         </div>
     </section>
